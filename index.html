@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CP-Roadmap | Спортивное программирование</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="site/css/style.css">
+</head>
+<body>
+    <header class="hero">
+        <div class="hero-content">
+            <h1>CP-Roadmap</h1>
+            <p>Твой путь от новичка до гроссмейстера</p>
+            <button id="btn-start">Начать путь</button>
+        </div>
+        <div class="player-stats glass-panel">
+            <div class="level-badge" id="player-level-badge"><span id="level-icon">🥚</span> <span id="level-name">Новичок</span></div>
+            <div class="xp-bar-container">
+                <div class="xp-bar" id="player-xp-bar"></div>
+            </div>
+            <div class="xp-text" id="player-xp-text">0 / 300 XP</div>
+        </div>
+        <div class="hero-bg-animated"></div>
+    </header>
+
+    <main>
+        <section id="skill-tree-section">
+            <h2 class="section-title">Дерево навыков</h2>
+            <div class="tree-wrapper">
+                <div class="tree-container" id="tree-container">
+                    <svg id="tree-svg"></svg>
+                    <div id="nodes-container"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="diagnostic-contest-section">
+            <h2 class="section-title">Диагностический контест</h2>
+            <p class="section-desc" id="diagnostic-desc">Загрузка...</p>
+            <div class="contest-grid" id="contest-grid"></div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2026 CP-Roadmap. Образовательная платформа.</p>
+            <p><a href="https://github.com" target="_blank">GitHub</a> | MIT License</p>
+        </div>
+    </footer>
+
+    <!-- Lesson Modal -->
+    <div id="lesson-modal" class="modal hidden">
+        <div class="modal-overlay" id="modal-overlay"></div>
+        <div class="modal-content glass-panel">
+            <button class="close-btn" id="close-modal">&times;</button>
+            <div class="modal-header">
+                <div class="modal-icon-wrapper">
+                    <span class="modal-icon" id="modal-icon"></span>
+                </div>
+                <div>
+                    <h2 id="modal-title">Тема</h2>
+                    <span class="badge" id="modal-platform">Platform</span>
+                </div>
+            </div>
+            
+            <div class="modal-body">
+                <div class="theory-section">
+                    <h3 id="theory-title">Теория</h3>
+                    <div id="theory-explanation" class="markdown-body"></div>
+                    
+                    <h4>Ключевые моменты</h4>
+                    <ul id="key-points-list"></ul>
+                    
+                    <h4>Шаблон кода</h4>
+                    <div class="code-wrapper">
+                        <pre><code id="code-template" class="language-cpp"></code></pre>
+                    </div>
+                </div>
+
+                <div class="tasks-section">
+                    <h3>Задачи</h3>
+                    <div class="progress-container">
+                        <div class="progress-bar-bg">
+                            <div class="progress-bar" id="task-progress-bar"></div>
+                        </div>
+                        <div id="task-progress-text" class="progress-text">0 / 0 выполнено</div>
+                    </div>
+                    <div id="tasks-list" class="tasks-list"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="site/js/app.js"></script>
+</body>
+</html>
