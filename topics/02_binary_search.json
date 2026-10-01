@@ -1,0 +1,26 @@
+{
+  "id": "binary_search",
+  "name": "Бинарный поиск",
+  "icon": "🔍",
+  "tier": 1,
+  "platform": "Codeforces",
+  "theory": {
+    "title": "Угадай число за пару шагов",
+    "explanation": "Бинарный (двоичный) поиск — это алгоритм поиска элемента в **отсортированном** массиве.\n\nПредставь, что ты ищешь слово в словаре. Ты же не листаешь каждую страницу с самого начала? Скорее всего, ты открываешь словарь посередине. Если нужная буква дальше — ты открываешь середину правой половины. Если раньше — середину левой. Это и есть бинарный поиск!\n\nГлавное требование для бинарного поиска — данные должны быть отсортированы (или функция должна быть монотонной). Сложность алгоритма **O(log N)**. Это значит, что среди 1 000 000 элементов мы найдем нужный всего за ~20 шагов!\n\nВ C++ есть встроенные функции для бинарного поиска:\n**lower_bound** — ищет первый элемент, который больше или равен заданному.\n**upper_bound** — ищет первый элемент, который строго больше заданного.\n\nОдин из самых мощных методов в олимпиадном программировании — **бинарный поиск по ответу**. Если мы знаем, что ответ лежит в диапазоне от `L` до `R`, и мы можем легко проверить, возможно ли достичь результата `M` (где `M` — середина диапазона), мы можем использовать бинарный поиск, чтобы найти оптимальный ответ. Главное условие: если мы можем достичь `M`, то мы можем достичь и любого худшего результата. Это свойство монотонности.",
+    "codeTemplate": "#include <bits/stdc++.h>\nusing namespace std;\n\nint main() {\n    int n, target;\n    cin >> n >> target;\n    vector<int> a(n);\n    for(int i = 0; i < n; i++) cin >> a[i];\n    \n    sort(a.begin(), a.end()); // Обязательно сортируем!\n\n    // 1. Ручной бинарный поиск\n    int L = 0, R = n - 1;\n    bool found = false;\n    while(L <= R) {\n        int mid = L + (R - L) / 2; // Избегаем переполнения\n        if(a[mid] == target) {\n            found = true;\n            break;\n        }\n        if(a[mid] < target) L = mid + 1;\n        else R = mid - 1;\n    }\n\n    // 2. Использование встроенных функций\n    // lower_bound возвращает итератор на первый элемент >= target\n    auto it1 = lower_bound(a.begin(), a.end(), target);\n    if(it1 != a.end() && *it1 == target) cout << \"Found!\\n\";\n    \n    // upper_bound возвращает итератор на первый элемент > target\n    auto it2 = upper_bound(a.begin(), a.end(), target);\n    cout << \"Число элементов <= target: \" << (it2 - a.begin()) << \"\\n\";\n\n    // 3. Шаблон бинарного поиска по ответу\n    /*\n    long long l = 0, r = 1e18, ans = 0;\n    while(l <= r) {\n        long long mid = l + (r - l) / 2;\n        if(check(mid)) {\n            ans = mid;\n            r = mid - 1; // или l = mid + 1, зависит от задачи\n        } else {\n            l = mid + 1; // или r = mid - 1\n        }\n    }\n    */\n    return 0;\n}",
+    "keyPoints": [
+      "Массив должен быть отсортирован перед бинарным поиском",
+      "Работает за O(log N) — очень быстро",
+      "lower_bound(>=) и upper_bound(>)",
+      "Бинарный поиск по ответу — мощный прием для сложных задач"
+    ]
+  },
+  "tasks": [
+    { "id": "cf_706B", "name": "Interesting drink", "url": "https://codeforces.com/problemset/problem/706/B", "platform": "Codeforces", "difficulty": "easy", "hint": "Отсортируй цены и используй upper_bound для ответа на каждый запрос.", "required": true },
+    { "id": "cf_474B", "name": "Worms", "url": "https://codeforces.com/problemset/problem/474/B", "platform": "Codeforces", "difficulty": "medium", "hint": "Построй массив префиксных сумм количеств червей, затем ищи с помощью lower_bound.", "required": true },
+    { "id": "cf_812C", "name": "Sagheer and Nubian Market", "url": "https://codeforces.com/problemset/problem/812/C", "platform": "Codeforces", "difficulty": "medium", "hint": "Делай бинарный поиск по количеству предметов (от 0 до n). Для проверки `check(k)` считай новую стоимость каждого предмета.", "required": true },
+    { "id": "cf_1201C", "name": "Maximum Median", "url": "https://codeforces.com/problemset/problem/1201/C", "platform": "Codeforces", "difficulty": "medium", "hint": "Бинарный поиск по возможному значению медианы. Проверяй, хватит ли k операций, чтобы сделать медиану равной mid.", "required": false },
+    { "id": "cf_1352C", "name": "K-th Not Divisible by n", "url": "https://codeforces.com/problemset/problem/1352/C", "platform": "Codeforces", "difficulty": "medium", "hint": "Можно решить формулой за O(1), а можно бинарным поиском по ответу.", "required": false }
+  ],
+  "tasksToComplete": 3
+}

@@ -1,179 +1,134 @@
 {
-  "version": "1.0",
-  "title": "Дерево прокачки CP-Roadmap",
-  "description": "Интерактивное дерево навыков для изучения спортивного программирования",
+  "version": "2.0",
+  "title": "Дерево алгоритмов CP-Roadmap",
+  "description": "Интерактивное дерево навыков для олимпиадного программирования",
   "levels": [
     { "id": 1, "name": "Новичок", "xpRequired": 0, "icon": "🥚", "color": "#9CA3AF" },
-    { "id": 2, "name": "Ученик", "xpRequired": 300, "icon": "🐣", "color": "#60A5FA" },
-    { "id": 3, "name": "Спортсмен", "xpRequired": 800, "icon": "⚔️", "color": "#A78BFA" },
-    { "id": 4, "name": "Мастер", "xpRequired": 1500, "icon": "🏆", "color": "#FBBF24" },
-    { "id": 5, "name": "Гроссмейстер", "xpRequired": 2500, "icon": "👑", "color": "#F87171" }
+    { "id": 2, "name": "Ученик", "xpRequired": 500, "icon": "🐣", "color": "#60A5FA" },
+    { "id": 3, "name": "Спортсмен", "xpRequired": 1200, "icon": "⚔️", "color": "#A78BFA" },
+    { "id": 4, "name": "Мастер", "xpRequired": 2200, "icon": "🏆", "color": "#FBBF24" },
+    { "id": 5, "name": "Гроссмейстер", "xpRequired": 3500, "icon": "👑", "color": "#F87171" }
   ],
   "nodes": [
-    {
-      "id": "io",
-      "name": "Ввод и вывод",
-      "icon": "📥",
-      "tier": 1,
-      "platform": "ACMP",
-      "requires": [],
-      "topicFile": "topics/01_io.json",
-      "xpReward": 100,
-      "position": { "x": 400, "y": 60 }
-    },
-    {
-      "id": "if_else",
-      "name": "Условия (if/else)",
-      "icon": "🔀",
-      "tier": 1,
-      "platform": "ACMP",
-      "requires": ["io"],
-      "topicFile": "topics/02_if_else.json",
-      "xpReward": 100,
-      "position": { "x": 400, "y": 160 }
-    },
-    {
-      "id": "for_loop",
-      "name": "Цикл for",
-      "icon": "🔁",
-      "tier": 1,
-      "platform": "ACMP",
-      "requires": ["if_else"],
-      "topicFile": "topics/03_for_loop.json",
-      "xpReward": 100,
-      "position": { "x": 280, "y": 260 }
-    },
-    {
-      "id": "while_loop",
-      "name": "Цикл while",
-      "icon": "🔄",
-      "tier": 1,
-      "platform": "ACMP",
-      "requires": ["if_else"],
-      "topicFile": "topics/04_while_loop.json",
-      "xpReward": 100,
-      "position": { "x": 520, "y": 260 }
-    },
-    {
-      "id": "arrays",
-      "name": "Массивы",
-      "icon": "📊",
-      "tier": 1,
-      "platform": "ACMP",
-      "requires": ["for_loop", "while_loop"],
-      "topicFile": "topics/05_arrays.json",
-      "xpReward": 150,
-      "position": { "x": 400, "y": 360 }
-    },
-    {
-      "id": "strings",
-      "name": "Строки и символы",
-      "icon": "🔤",
-      "tier": 2,
-      "platform": "Informatics",
-      "requires": ["arrays"],
-      "topicFile": "topics/06_strings.json",
-      "xpReward": 150,
-      "position": { "x": 200, "y": 460 }
-    },
-    {
-      "id": "functions",
-      "name": "Функции",
-      "icon": "⚙️",
-      "tier": 2,
-      "platform": "Informatics",
-      "requires": ["arrays"],
-      "topicFile": "topics/07_functions.json",
-      "xpReward": 150,
-      "position": { "x": 400, "y": 460 }
-    },
-    {
-      "id": "nested_loops",
-      "name": "Вложенные циклы",
-      "icon": "🌀",
-      "tier": 2,
-      "platform": "Informatics",
-      "requires": ["arrays"],
-      "topicFile": "topics/08_nested_loops.json",
-      "xpReward": 150,
-      "position": { "x": 600, "y": 460 }
-    },
-    {
-      "id": "2d_arrays",
-      "name": "Двумерные массивы",
-      "icon": "🧮",
-      "tier": 2,
-      "platform": "Informatics",
-      "requires": ["nested_loops"],
-      "topicFile": "topics/09_2d_arrays.json",
-      "xpReward": 200,
-      "position": { "x": 600, "y": 560 }
-    },
     {
       "id": "sorting",
       "name": "Сортировка",
       "icon": "📶",
-      "tier": 2,
-      "platform": "Informatics",
-      "requires": ["strings", "functions"],
-      "topicFile": "topics/10_sorting.json",
-      "xpReward": 200,
-      "position": { "x": 300, "y": 560 }
-    },
-    {
-      "id": "greedy",
-      "name": "Жадные алгоритмы",
-      "icon": "🤑",
-      "tier": 3,
-      "platform": "Codeforces",
-      "requires": ["sorting"],
-      "topicFile": "topics/11_greedy.json",
-      "xpReward": 250,
-      "position": { "x": 200, "y": 660 }
+      "requires": [],
+      "position": { "x": 400, "y": 80 },
+      "xpReward": 150,
+      "topicFile": "topics/01_sorting.json",
+      "platform": "Codeforces"
     },
     {
       "id": "binary_search",
       "name": "Бинарный поиск",
       "icon": "🔍",
-      "tier": 3,
-      "platform": "Codeforces",
       "requires": ["sorting"],
-      "topicFile": "topics/12_binary_search.json",
-      "xpReward": 250,
-      "position": { "x": 420, "y": 660 }
-    },
-    {
-      "id": "stl",
-      "name": "STL контейнеры",
-      "icon": "🧰",
-      "tier": 3,
-      "platform": "Codeforces",
-      "requires": ["greedy", "binary_search", "2d_arrays"],
-      "topicFile": "topics/13_stl.json",
-      "xpReward": 300,
-      "position": { "x": 400, "y": 760 }
+      "position": { "x": 250, "y": 200 },
+      "xpReward": 200,
+      "topicFile": "topics/02_binary_search.json",
+      "platform": "Codeforces"
     },
     {
       "id": "prefix_sums",
       "name": "Префиксные суммы",
       "icon": "➕",
-      "tier": 3,
-      "platform": "Codeforces",
-      "requires": ["stl"],
-      "topicFile": "topics/14_prefix_sums.json",
-      "xpReward": 300,
-      "position": { "x": 400, "y": 860 }
+      "requires": ["sorting"],
+      "position": { "x": 550, "y": 200 },
+      "xpReward": 200,
+      "topicFile": "topics/03_prefix_sums.json",
+      "platform": "Codeforces"
     },
     {
-      "id": "dp_intro",
-      "name": "Динамическое программирование",
+      "id": "greedy",
+      "name": "Жадные алгоритмы",
+      "icon": "🤑",
+      "requires": ["sorting"],
+      "position": { "x": 100, "y": 340 },
+      "xpReward": 250,
+      "topicFile": "topics/04_greedy.json",
+      "platform": "Codeforces"
+    },
+    {
+      "id": "two_pointers",
+      "name": "Два указателя",
+      "icon": "👆",
+      "requires": ["binary_search"],
+      "position": { "x": 300, "y": 340 },
+      "xpReward": 250,
+      "topicFile": "topics/05_two_pointers.json",
+      "platform": "Codeforces"
+    },
+    {
+      "id": "recursion",
+      "name": "Рекурсия и перебор",
+      "icon": "🌀",
+      "requires": ["binary_search"],
+      "position": { "x": 500, "y": 340 },
+      "xpReward": 250,
+      "topicFile": "topics/06_recursion.json",
+      "platform": "Codeforces"
+    },
+    {
+      "id": "basic_dp",
+      "name": "Базовое ДП",
       "icon": "🧠",
-      "tier": 3,
-      "platform": "Codeforces",
-      "requires": ["prefix_sums"],
-      "topicFile": "topics/15_dp_intro.json",
+      "requires": ["prefix_sums", "recursion"],
+      "position": { "x": 700, "y": 340 },
+      "xpReward": 300,
+      "topicFile": "topics/07_basic_dp.json",
+      "platform": "Codeforces"
+    },
+    {
+      "id": "graphs",
+      "name": "Графы: BFS и DFS",
+      "icon": "🕸️",
+      "requires": ["recursion"],
+      "position": { "x": 150, "y": 500 },
+      "xpReward": 350,
+      "topicFile": "topics/08_graphs.json",
+      "platform": "Codeforces"
+    },
+    {
+      "id": "number_theory",
+      "name": "Теория чисел",
+      "icon": "🔢",
+      "requires": ["greedy"],
+      "position": { "x": 350, "y": 500 },
+      "xpReward": 300,
+      "topicFile": "topics/09_number_theory.json",
+      "platform": "Codeforces"
+    },
+    {
+      "id": "trees_dsu",
+      "name": "Деревья и DSU",
+      "icon": "🌳",
+      "requires": ["graphs"],
+      "position": { "x": 200, "y": 640 },
       "xpReward": 400,
-      "position": { "x": 400, "y": 960 }
+      "topicFile": "topics/10_trees_dsu.json",
+      "platform": "Codeforces"
+    },
+    {
+      "id": "advanced_dp",
+      "name": "Продвинутое ДП",
+      "icon": "💎",
+      "requires": ["basic_dp"],
+      "position": { "x": 550, "y": 500 },
+      "xpReward": 400,
+      "topicFile": "topics/11_advanced_dp.json",
+      "platform": "Codeforces"
+    },
+    {
+      "id": "string_algo",
+      "name": "Строковые алгоритмы",
+      "icon": "🔤",
+      "requires": ["two_pointers"],
+      "position": { "x": 700, "y": 500 },
+      "xpReward": 350,
+      "topicFile": "topics/12_string_algo.json",
+      "platform": "Codeforces"
     }
   ]
 }

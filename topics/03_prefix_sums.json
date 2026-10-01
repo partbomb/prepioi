@@ -1,0 +1,27 @@
+{
+  "id": "prefix_sums",
+  "name": "Префиксные суммы",
+  "icon": "➕",
+  "tier": 1,
+  "platform": "Codeforces",
+  "theory": {
+    "title": "Ускоряем сумму на отрезке",
+    "explanation": "Что делать, если у нас есть большой массив, и нам постоянно задают вопросы: 'А какая сумма элементов с L-го по R-й?'\n\nЕсли считать циклом каждый раз, мы потратим O(N) времени на один запрос. А если запросов 100 000? Программа будет работать слишком долго! Здесь нас спасают **префиксные суммы**.\n\nИдея проста: давайте заранее посчитаем сумму всех элементов от начала массива до каждого индекса `i` и сохраним это в новый массив `pref`. То есть `pref[i] = a[0] + a[1] + ... + a[i]`.\n\nКак теперь быстро найти сумму от `L` до `R`? Очень легко! Это сумма всех элементов до `R` минус сумма всех элементов до `L-1`. То есть `sum(L, R) = pref[R] - pref[L-1]`. Теперь ответ на запрос занимает **O(1)** времени!\n\nЧасто удобно делать массив префиксов на 1 больше размера исходного массива: `pref[0] = 0`, `pref[1] = a[0]`, `pref[2] = a[0] + a[1]` и так далее. При 1-индексации формула становится красивой: `sum(L, R) = pref[R] - pref[L-1]`, и нам не нужно думать о выходе за границы массива при `L=0`.\n\nЭтот метод можно обобщить и для **двумерных массивов** (матриц). Двумерная префиксная сумма `pref[i][j]` хранит сумму всех элементов в прямоугольнике от (0,0) до (i,j). Формула включений-исключений для ответа на запрос о сумме в любом прямоугольнике: `S = pref[R][C] - pref[r-1][C] - pref[R][c-1] + pref[r-1][c-1]`.",
+    "codeTemplate": "#include <bits/stdc++.h>\nusing namespace std;\n\nint main() {\n    // Ввод размера массива и количества запросов\n    int n, q;\n    cin >> n >> q;\n    vector<long long> a(n + 1);\n    \n    // Считываем данные в 1-индексации\n    for(int i = 1; i <= n; i++) {\n        cin >> a[i];\n    }\n\n    // Строим массив префиксных сумм\n    vector<long long> pref(n + 1, 0);\n    for(int i = 1; i <= n; i++) {\n        pref[i] = pref[i - 1] + a[i];\n    }\n\n    // Обрабатываем запросы за O(1)\n    while(q--) {\n        int l, r;\n        cin >> l >> r;\n        // Сумма на отрезке [l, r]\n        long long sum = pref[r] - pref[l - 1];\n        cout << sum << \"\\n\";\n    }\n\n    return 0;\n}",
+    "keyPoints": [
+      "Префиксные суммы ускоряют ответы на запросы суммы с O(N) до O(1)",
+      "Формула: pref[i] = pref[i-1] + a[i]",
+      "Сумма на отрезке [L, R] = pref[R] - pref[L-1]",
+      "Удобно использовать 1-индексацию для избежания выхода за пределы массива",
+      "Можно обобщить для 2D массивов (матриц)"
+    ]
+  },
+  "tasks": [
+    { "id": "cf_276C", "name": "Little Girl and Maximum Sum", "url": "https://codeforces.com/problemset/problem/276/C", "platform": "Codeforces", "difficulty": "medium", "hint": "Массив разностей поможет найти частоту запроса для каждого индекса, затем сортируй частоты и элементы.", "required": true },
+    { "id": "cf_816B", "name": "Karen and Coffee", "url": "https://codeforces.com/problemset/problem/816/B", "platform": "Codeforces", "difficulty": "medium", "hint": "Двойные префиксные суммы! Сначала прибавляй +1 и -1 на концах отрезков (массив разностей).", "required": true },
+    { "id": "cf_433B", "name": "Kuriyama Mirai's Stones", "url": "https://codeforces.com/problemset/problem/433/B", "platform": "Codeforces", "difficulty": "easy", "hint": "Создай два массива префиксных сумм: один для исходного массива, второй для отсортированного.", "required": true },
+    { "id": "cf_295A", "name": "Greg and Array", "url": "https://codeforces.com/problemset/problem/295/A", "platform": "Codeforces", "difficulty": "hard", "hint": "Опять массив разностей (или разностные массивы). Применяй их дважды: для количества операций и для прибавлений.", "required": false },
+    { "id": "cf_1118B", "name": "Tanya and Candies", "url": "https://codeforces.com/problemset/problem/1118/B", "platform": "Codeforces", "difficulty": "medium", "hint": "Считай префиксные суммы отдельно для четных и нечетных позиций.", "required": false }
+  ],
+  "tasksToComplete": 3
+}

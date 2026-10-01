@@ -126,6 +126,19 @@ body {
     transition: width 0.5s ease-out;
 }
 
+/* Banner */
+.stepik-banner {
+    text-align: center;
+    padding: 1rem 2rem;
+    background: linear-gradient(135deg, rgba(139,92,246,0.2), rgba(6,182,212,0.2));
+    border-bottom: 1px solid var(--glass-border);
+    font-size: 1rem;
+}
+.stepik-banner a {
+    color: var(--accent-cyan);
+    text-decoration: underline;
+}
+
 /* Sections */
 .section-title {
     text-align: center;

@@ -1,0 +1,26 @@
+{
+  "id": "two_pointers",
+  "name": "Два указателя",
+  "icon": "👆",
+  "tier": 2,
+  "platform": "Codeforces",
+  "theory": {
+    "title": "Сжимаем алгоритмы как гармошку",
+    "explanation": "Два указателя (Two Pointers) — это оптимизационный прием, который позволяет уменьшить сложность с O(N^2) до O(N). Идея состоит в том, чтобы использовать две переменные ('указатели') для перебора массива, обычно двигая их в одном направлении или навстречу друг другу.\n\nСуществует два основных вида:\n\n1. **Указатели навстречу друг другу (Начинаются с концов).**\nЧасто используется в отсортированных массивах. Например, найти две суммы элементов, равные заданному X. Мы ставим левый указатель `L` на начало, правый `R` на конец. Если их сумма меньше X — увеличиваем `L`. Если больше — уменьшаем `R`. Если равна — ответ найден!\n\n2. **Указатели в одном направлении (Sliding Window / Скользящее окно).**\nОба указателя `L` и `R` начинают с нуля. Мы двигаем правый `R` вперед, добавляя элементы в 'окно'. Как только условие задачи нарушается (например, сумма в окне превысила предел), мы начинаем двигать левый `L`, 'сбрасывая' элементы, пока окно снова не станет валидным. \n\nСложность O(N) достигается за счет того, что каждый указатель двигается только вперед. Несмотря на вложенный цикл `while`, левый и правый указатель за весь алгоритм сделают суммарно не более 2N шагов.",
+    "codeTemplate": "#include <bits/stdc++.h>\nusing namespace std;\n\nint main() {\n    // Пример скользящего окна (Sliding Window)\n    // Найти самую длинную подотрезок, сумма элементов которого <= S\n    int n;\n    long long S;\n    cin >> n >> S;\n    vector<int> a(n);\n    for(int i = 0; i < n; i++) cin >> a[i];\n\n    long long current_sum = 0;\n    int L = 0, max_len = 0;\n\n    for(int R = 0; R < n; R++) {\n        current_sum += a[R]; // Добавляем элемент в окно\n\n        // Если окно 'переполнено', двигаем L\n        while(current_sum > S && L <= R) {\n            current_sum -= a[L];\n            L++;\n        }\n\n        // Обновляем максимальную длину валидного окна\n        max_len = max(max_len, R - L + 1);\n    }\n\n    cout << max_len << \"\\n\";\n    \n    // Пример указателей навстречу (Поиск пары чисел с суммой X)\n    /*\n    sort(a.begin(), a.end());\n    int l = 0, r = n - 1;\n    while(l < r) {\n        if(a[l] + a[r] == X) { cout << \"YES\"; return 0; }\n        if(a[l] + a[r] < X) l++;\n        else r--;\n    }\n    */\n    return 0;\n}",
+    "keyPoints": [
+      "Снижает сложность с O(N^2) до O(N)",
+      "Окно (L, R) двигается только вперед, не возвращаясь назад",
+      "Скользящее окно используется для поиска подотрезков, удовлетворяющих условию",
+      "Указатели навстречу часто требуют предварительной сортировки массива"
+    ]
+  },
+  "tasks": [
+    { "id": "cf_279B", "name": "Books", "url": "https://codeforces.com/problemset/problem/279/B", "platform": "Codeforces", "difficulty": "medium", "hint": "Классическое скользящее окно: R добавляет книги, пока хватает времени. Если времени мало — двигай L.", "required": true },
+    { "id": "cf_381A", "name": "Sereja and Dima", "url": "https://codeforces.com/problemset/problem/381/A", "platform": "Codeforces", "difficulty": "easy", "hint": "Ставь указатели на начало и конец, каждый ход жадно бери максимальное из двух.", "required": true },
+    { "id": "cf_6C", "name": "Alice, Bob and Chocolate", "url": "https://codeforces.com/problemset/problem/6/C", "platform": "Codeforces", "difficulty": "medium", "hint": "Два указателя навстречу друг другу. Моделируй процесс поедания шоколадок.", "required": true },
+    { "id": "cf_1462C", "name": "Unique Number", "url": "https://codeforces.com/problemset/problem/1462/C", "platform": "Codeforces", "difficulty": "easy", "hint": "Задача на жадный алгоритм: бери наибольшие цифры (9, 8...) с конца.", "required": false },
+    { "id": "cf_1352E", "name": "Special Elements", "url": "https://codeforces.com/problemset/problem/1352/E", "platform": "Codeforces", "difficulty": "hard", "hint": "Для каждой суммы можно использовать два указателя, но проще сохранить все возможные суммы в массив частот.", "required": false }
+  ],
+  "tasksToComplete": 3
+}

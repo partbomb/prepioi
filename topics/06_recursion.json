@@ -1,0 +1,26 @@
+{
+  "id": "recursion",
+  "name": "Рекурсия",
+  "icon": "🌀",
+  "tier": 2,
+  "platform": "Codeforces",
+  "theory": {
+    "title": "Функция, которая вызывает саму себя",
+    "explanation": "Рекурсия — это когда функция вызывает саму себя внутри себя же. Звучит как магия (или ошибка, которая приведет к бесконечному циклу), но если все сделать правильно, рекурсия становится невероятно мощным инструментом.\n\nПредставь себе матрешку. Чтобы добраться до самой маленькой матрешки, нужно открыть большую, потом ту, что внутри нее, и так далее. Открытие каждой новой матрешки — это рекурсивный вызов.\n\nЧтобы рекурсия не была бесконечной, у нее обязательно должен быть **базовый случай** (условие выхода). В примере с матрешкой — это самая маленькая неразборная матрешка.\n\nКаждый вызов функции сохраняется в **стеке вызовов** (call stack) в памяти. Поэтому слишком глубокая рекурсия (глубже ~10000 вызовов) может привести к ошибке Stack Overflow (переполнение стека). Но в большинстве олимпиадных задач этого не происходит.\n\nРекурсия очень полезна для полного перебора (Brute Force) и **бэктрекинга** (поиск с возвратом). Например, когда нам нужно сгенерировать все возможные перестановки чисел, комбинации скобок или расставить ферзей на шахматной доске. В бэктрекинге мы делаем выбор, вызываем рекурсию, а затем 'отменяем' этот выбор, чтобы попробовать другой вариант.",
+    "codeTemplate": "#include <bits/stdc++.h>\nusing namespace std;\n\n// Пример 1: Вычисление факториала\nlong long factorial(int n) {\n    // Базовый случай\n    if (n == 0 || n == 1) return 1;\n    // Рекурсивный переход\n    return n * factorial(n - 1);\n}\n\n// Пример 2: Генерация всех бинарных строк длины n\nvoid generate_binary(int n, string current) {\n    // Базовый случай: строка достигла нужной длины\n    if (current.length() == n) {\n        cout << current << \"\\n\";\n        return;\n    }\n    \n    // Рекурсивные вызовы\n    generate_binary(n, current + \"0\");\n    generate_binary(n, current + \"1\");\n}\n\n// Пример 3: Бэктрекинг - генерация всех перестановок чисел от 1 до N\nint n;\nvector<int> perm;\nvector<bool> used;\n\nvoid generate_permutations() {\n    if (perm.size() == n) {\n        for(int x : perm) cout << x << \" \";\n        cout << \"\\n\";\n        return;\n    }\n    for(int i = 1; i <= n; i++) {\n        if (!used[i]) {\n            used[i] = true;      // Делаем выбор\n            perm.push_back(i);\n            \n            generate_permutations(); // Рекурсивный вызов\n            \n            perm.pop_back();     // Отменяем выбор (backtrack)\n            used[i] = false;\n        }\n    }\n}\n\nint main() {\n    n = 3;\n    used.assign(n + 1, false);\n    generate_permutations();\n    return 0;\n}",
+    "keyPoints": [
+      "Рекурсия — вызов функцией самой себя",
+      "Обязательно нужен базовый случай (условие выхода)",
+      "Рекурсия использует стек вызовов, будь осторожен с глубиной",
+      "Бэктрекинг — это рекурсивный перебор с 'откатом' (отменой) действия"
+    ]
+  },
+  "tasks": [
+    { "id": "cf_550B", "name": "Preparing Olympiad", "url": "https://codeforces.com/problemset/problem/550/B", "platform": "Codeforces", "difficulty": "medium", "hint": "Можно использовать рекурсию для перебора всех подмножеств задач (брать задачу или не брать).", "required": true },
+    { "id": "cf_344B", "name": "Simple Molecules", "url": "https://codeforces.com/problemset/problem/344/B", "platform": "Codeforces", "difficulty": "easy", "hint": "Задача решается математически (система уравнений), перебор не обязателен, но полезно подумать о связях.", "required": true },
+    { "id": "cf_1560B", "name": "Who's Opposite", "url": "https://codeforces.com/problemset/problem/1560/B", "platform": "Codeforces", "difficulty": "easy", "hint": "Математика и логика. Подумай о диаметре круга.", "required": false },
+    { "id": "cf_1722C", "name": "Word Game", "url": "https://codeforces.com/problemset/problem/1722/C", "platform": "Codeforces", "difficulty": "easy", "hint": "Используй map или set для подсчета уникальности слов.", "required": false },
+    { "id": "cf_721C", "name": "Journey", "url": "https://codeforces.com/problemset/problem/721/C", "platform": "Codeforces", "difficulty": "hard", "hint": "Динамическое программирование с рекурсией (мемоизация) на графе.", "required": false }
+  ],
+  "tasksToComplete": 2
+}
