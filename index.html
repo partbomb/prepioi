@@ -14,47 +14,40 @@
             <p>Какие алгоритмы учить? Какие задачи решать?</p>
             <button id="btn-start">Начать путь</button>
         </div>
-        <div class="player-stats glass-panel">
-            <div class="level-badge" id="player-level-badge"><span id="level-icon">🥚</span> <span id="level-name">Новичок</span></div>
-            <div class="xp-bar-container">
-                <div class="xp-bar" id="player-xp-bar"></div>
-            </div>
-            <div class="xp-text" id="player-xp-text">0 / 300 XP</div>
-        </div>
         <div class="hero-bg-animated"></div>
     </header>
+    
     <div class="stepik-banner">
         <p>🎓 <strong>Не знаешь основ C++?</strong> Сначала пройди <a href="https://stepik.org/course/363/promo" target="_blank">бесплатный курс на Stepik</a>, а потом возвращайся сюда за алгоритмами!</p>
     </div>
 
     <main>
         <section id="skill-tree-section">
-            <h2 class="section-title">Дерево навыков</h2>
-            <div class="tree-wrapper">
+            <div class="tree-controls">
+                <span class="control-hint">🖱️ Левая кнопка: перемещение | 🖱️ Колесико: масштаб</span>
+                <div>
+                    <button id="btn-reset-view">Сбросить вид</button>
+                    <button id="btn-reset-progress">Сбросить прогресс</button>
+                </div>
+            </div>
+            <div class="tree-wrapper" id="tree-wrapper">
                 <div class="tree-container" id="tree-container">
                     <svg id="tree-svg"></svg>
                     <div id="nodes-container"></div>
                 </div>
             </div>
         </section>
-
-        <section id="diagnostic-contest-section">
-            <h2 class="section-title">Диагностический контест</h2>
-            <p class="section-desc" id="diagnostic-desc">Загрузка...</p>
-            <div class="contest-grid" id="contest-grid"></div>
-        </section>
     </main>
 
     <footer>
         <div class="footer-content">
             <p>&copy; 2026 CP-Roadmap. Образовательная платформа.</p>
-            <p><a href="https://github.com" target="_blank">GitHub</a> | MIT License</p>
         </div>
     </footer>
 
-    <!-- Lesson Modal -->
-    <div id="lesson-modal" class="modal hidden">
-        <div class="modal-overlay" id="modal-overlay"></div>
+    <!-- Node Modal -->
+    <div id="node-modal" class="modal hidden">
+        <div class="modal-overlay" id="close-modal-overlay"></div>
         <div class="modal-content glass-panel">
             <button class="close-btn" id="close-modal">&times;</button>
             <div class="modal-header">
@@ -63,33 +56,32 @@
                 </div>
                 <div>
                     <h2 id="modal-title">Тема</h2>
-                    <span class="badge" id="modal-platform">Platform</span>
+                    <div class="badges">
+                        <span class="badge" id="modal-cf">CF</span>
+                        <span class="badge usaco-badge" id="modal-usaco">USACO</span>
+                    </div>
                 </div>
             </div>
             
             <div class="modal-body">
                 <div class="theory-section">
-                    <h3 id="theory-title">Теория</h3>
-                    <div id="theory-explanation" class="markdown-body"></div>
+                    <h3>Описание</h3>
+                    <p id="modal-desc" class="markdown-body"></p>
                     
-                    <h4>Ключевые моменты</h4>
-                    <ul id="key-points-list"></ul>
-                    
-                    <h4>Шаблон кода</h4>
-                    <div class="code-wrapper">
-                        <pre><code id="code-template" class="language-cpp"></code></pre>
-                    </div>
+                    <h4 class="mt-4">Пререквизиты</h4>
+                    <div id="modal-prereqs" class="prereqs-list"></div>
                 </div>
 
-                <div class="tasks-section">
-                    <h3>Задачи</h3>
-                    <div class="progress-container">
-                        <div class="progress-bar-bg">
-                            <div class="progress-bar" id="task-progress-bar"></div>
-                        </div>
-                        <div id="task-progress-text" class="progress-text">0 / 0 выполнено</div>
+                <div class="tasks-section mt-4">
+                    <h3>Статус</h3>
+                    <div class="status-box" id="modal-status-box">
+                        <p id="modal-status-text">Заблокировано</p>
                     </div>
-                    <div id="tasks-list" class="tasks-list"></div>
+                    
+                    <div class="action-box mt-4">
+                        <button id="btn-toggle-complete" class="btn-complete">Отметить как пройденное</button>
+                        <a id="btn-stepik-link" href="#" target="_blank" class="btn-link hidden mt-2">Перейти к курсу</a>
+                    </div>
                 </div>
             </div>
         </div>
