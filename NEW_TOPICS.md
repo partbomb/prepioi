@@ -1,61 +1,67 @@
 # 📋 Список тем CP-Roadmap
 
-Официальный список тем, разделенный на 3 уровня сложности (Онай, Средни, Киын). Для каждой темы проведена детальная проверка ее наличия на **USACO Guide**.
+---
+
+### 🚀 Инструкция для новичков:
+
+> 1. 🎓 **Изучи основы C++:** Если ты только начинаешь, первым делом пройди курс: **[📚 Stepik — Программирование на C++](https://stepik.org/course/363/promo)**.
+> 2. ⚔️ **Решай задачи каждый день:** Решай по **3–4 задачи в день** на **[Codeforces](https://codeforces.com/)**.
+> 3. 🎯 **Изучай темы по рейтингу:** Когда достигнешь нужного рейтинга на Codeforces, открывай соответствующую тему на **USACO Guide** по ссылке ниже!
 
 ---
 
 ## 🟢 Онай (Легкий уровень)
 
-| # | Тема | Наличие на USACO Guide | Раздел USACO Guide | CF рейтинг |
-|---|------|------------------------|-------------------|-----------|
-| 1 | **Префиксные суммы** | ✅ Есть | Silver: Prefix Sums | 900+ |
-| 2 | **Два указателя** | ✅ Есть | Silver: Two Pointers | 1000+ |
-| 3 | **Частотные массивы** | ✅ Есть | Bronze/Silver: Frequency Arrays | 800+ |
-| 4 | **Базовая жадность** | ✅ Есть | Bronze: Greedy Algorithms | 1000+ |
-| 5 | **Модульная арифметика** | ✅ Есть | Gold: Modular Arithmetic | 1000+ |
-| 6 | **Встроенная сортировка (STL)** | ✅ Есть | Bronze: Custom Comparators and Sorting | 800+ |
-| 7 | **Базовая динамика (Кузнечик, лесенки)** | ✅ Есть | Silver/Gold: Intro to DP | 1100+ |
-| 8 | **Полный перебор (Brute force)** | ✅ Есть | Bronze: Complete Search | 800+ |
+| # | Тема | Ссылка на USACO Guide | Рейтинг CF |
+|---|------|-----------------------|-----------|
+| 1 | **Префиксные суммы** | 🔗 [USACO Guide: Prefix Sums](https://usaco.guide/silver/prefix-sums) | 🎯 **CF 900+** |
+| 2 | **Два указателя** | 🔗 [USACO Guide: Two Pointers](https://usaco.guide/silver/two-pointers) | 🎯 **CF 1000+** |
+| 3 | **Частотные массивы** | 🔗 [USACO Guide: Frequency Arrays](https://usaco.guide/silver/frequency-arrays) | 🎯 **CF 800+** |
+| 4 | **Базовая жадность** | 🔗 [USACO Guide: Greedy Algorithms](https://usaco.guide/bronze/greedy) | 🎯 **CF 1000+** |
+| 5 | **Модульная арифметика** | 🔗 [USACO Guide: Modular Arithmetic](https://usaco.guide/gold/modular) | 🎯 **CF 1000+** |
+| 6 | **Встроенная сортировка (STL)** | 🔗 [USACO Guide: Sorting & Comparators](https://usaco.guide/silver/sorting-custom) | 🎯 **CF 800+** |
+| 7 | **Базовая динамика (Кузнечик, лесенки)** | 🔗 [USACO Guide: Intro to DP](https://usaco.guide/gold/intro-dp) | 🎯 **CF 1100+** |
+| 8 | **Полный перебор (Brute force)** | 🔗 [USACO Guide: Complete Search](https://usaco.guide/bronze/complete-search) | 🎯 **CF 800+** |
 
 ---
 
 ## 🟡 Средни (Средний уровень)
 
-| # | Тема | Наличие на USACO Guide | Раздел USACO Guide | CF рейтинг |
-|---|------|------------------------|-------------------|-----------|
-| 9 | **Бинарный поиск** | ✅ Есть | Silver: Binary Search | 1200+ |
-| 10 | **Бинпоиск по ответу** | ✅ Есть | Silver: Binary Search on Answer | 1300+ |
-| 11 | **Алгоритм Евклида (НОД/НОК)** | ✅ Есть | Gold: Divisibility & GCD | 1200+ |
-| 12 | **Решето Эратосфена** | ✅ Есть | Gold: Divisibility & Sieve | 1200+ |
-| 13 | **Быстрое возведение в степень** | ✅ Есть | Gold: Modular Exponentiation | 1300+ |
-| 14 | **DFS (Поиск в глубину)** | ✅ Есть | Silver: Depth First Search | 1300+ |
-| 15 | **BFS (Поиск в ширину)** | ✅ Есть | Silver: Breadth First Search | 1300+ |
-| 16 | **Разностный массив** | ✅ Есть | Silver: Difference Arrays | 1300+ |
-| 17 | **Сжатие координат** | ✅ Есть | Silver: Coordinate Compression | 1400+ |
-| 18 | **Полиномиальное хеширование** | ✅ Есть | Gold: String Hashing | 1400+ |
-| 19 | **Динамика (Рюкзак, НВП, НОП)** | ✅ Есть | Gold: Knapsack DP, LIS, LCS | 1400+ |
-| 20 | **Обратный элемент по модулю** | ✅ Есть | Gold: Modular Inverse | 1500+ |
+| # | Тема | Ссылка на USACO Guide | Рейтинг CF |
+|---|------|-----------------------|-----------|
+| 9 | **Бинарный поиск** | 🔗 [USACO Guide: Binary Search](https://usaco.guide/silver/binary-search) | 🎯 **CF 1200+** |
+| 10 | **Бинпоиск по ответу** | 🔗 [USACO Guide: Binary Search on Answer](https://usaco.guide/silver/binary-search) | 🎯 **CF 1300+** |
+| 11 | **Алгоритм Евклида (НОД/НОК)** | 🔗 [USACO Guide: Divisibility & GCD](https://usaco.guide/gold/divisibility) | 🎯 **CF 1200+** |
+| 12 | **Решето Эратосфена** | 🔗 [USACO Guide: Sieve of Eratosthenes](https://usaco.guide/gold/divisibility) | 🎯 **CF 1200+** |
+| 13 | **Быстрое возведение в степень** | 🔗 [USACO Guide: Modular Exponentiation](https://usaco.guide/gold/modular) | 🎯 **CF 1300+** |
+| 14 | **DFS (Поиск в глубину)** | 🔗 [USACO Guide: Depth First Search](https://usaco.guide/silver/dfs) | 🎯 **CF 1300+** |
+| 15 | **BFS (Поиск в ширину)** | 🔗 [USACO Guide: Breadth First Search](https://usaco.guide/silver/bfs) | 🎯 **CF 1300+** |
+| 16 | **Разностный массив** | 🔗 [USACO Guide: Difference Array](https://usaco.guide/silver/more-prefix-sums) | 🎯 **CF 1300+** |
+| 17 | **Сжатие координат** | 🔗 [USACO Guide: Coordinate Compression](https://usaco.guide/silver/sorting-custom) | 🎯 **CF 1400+** |
+| 18 | **Полиномиальное хеширование** | 🔗 [USACO Guide: String Hashing](https://usaco.guide/gold/string-hashing) | 🎯 **CF 1400+** |
+| 19 | **Динамика (Рюкзак, НВП, НОП)** | 🔗 [USACO Guide: Knapsack & LIS DP](https://usaco.guide/gold/knapsack) | 🎯 **CF 1400+** |
+| 20 | **Обратный элемент по модулю** | 🔗 [USACO Guide: Modular Inverse](https://usaco.guide/gold/modular) | 🎯 **CF 1500+** |
 
 ---
 
 ## 🔴 Киын (Сложный уровень)
 
-| # | Тема | Наличие на USACO Guide | Раздел USACO Guide | CF рейтинг |
-|---|------|------------------------|-------------------|-----------|
-| 21 | **Дерево отрезков** | ✅ Есть | Gold/Platinum: Segment Tree | 1600+ |
-| 22 | **Дерево Фенвика** | ✅ Есть | Gold: Binary Indexed Tree (Fenwick) | 1600+ |
-| 23 | **СНМ (DSU)** | ✅ Есть | Gold: Disjoint Set Union | 1500+ |
-| 24 | **Алгоритм Дейкстры** | ✅ Есть | Gold: Shortest Paths (Dijkstra) | 1600+ |
-| 25 | **LCA (Наименьший общий предок)** | ✅ Есть | Platinum: Lowest Common Ancestor | 1800+ |
-| 26 | **Сканирующая прямая** | ✅ Есть | Silver/Gold: Line Sweep | 1600+ |
-| 27 | **Тернарный поиск** | ⚠️ Редко (в задачах Platinum) | Platinum (встречается в задачах) | 1600+ |
-| 28 | **Топологическая сортировка** | ✅ Есть | Gold: Topological Sort | 1500+ |
-| 29 | **Минимальное остовное дерево (Крускал/Прим)** | ✅ Есть | Gold: Minimum Spanning Trees | 1600+ |
-| 30 | **Префикс-функция (КМП)** | ✅ Есть | Platinum: String Matching (KMP) | 1700+ |
-| 31 | **Бор (Trie)** | ✅ Есть | Platinum: Tries | 1700+ |
-| 32 | **Динамика по маскам** | ✅ Есть | Gold: Bitmask DP | 1700+ |
-| 33 | **Динамика на деревьях** | ✅ Есть | Gold: DP on Trees | 1700+ |
-| 34 | **Разреженная таблица (Sparse Table)** | ✅ Есть | Platinum: Sparse Table | 1700+ |
+| # | Тема | Ссылка на USACO Guide | Рейтинг CF |
+|---|------|-----------------------|-----------|
+| 21 | **Дерево отрезков** | 🔗 [USACO Guide: Segment Tree](https://usaco.guide/plat/segtree) | 🎯 **CF 1600+** |
+| 22 | **Дерево Фенвика** | 🔗 [USACO Guide: Binary Indexed Tree](https://usaco.guide/gold/purq) | 🎯 **CF 1600+** |
+| 23 | **СНМ (DSU)** | 🔗 [USACO Guide: Disjoint Set Union](https://usaco.guide/gold/dsu) | 🎯 **CF 1500+** |
+| 24 | **Алгоритм Дейкстры** | 🔗 [USACO Guide: Shortest Paths (Dijkstra)](https://usaco.guide/gold/shortest-paths) | 🎯 **CF 1600+** |
+| 25 | **LCA (Наименьший общий предок)** | 🔗 [USACO Guide: Lowest Common Ancestor](https://usaco.guide/plat/binary-jump) | 🎯 **CF 1800+** |
+| 26 | **Сканирующая прямая** | 🔗 [USACO Guide: Line Sweep](https://usaco.guide/plat/line-sweep) | 🎯 **CF 1600+** |
+| 27 | **Тернарный поиск** | 🔗 [USACO Guide: Ternary Search](https://usaco.guide/general/ternary-search) | 🎯 **CF 1600+** |
+| 28 | **Топологическая сортировка** | 🔗 [USACO Guide: Topological Sort](https://usaco.guide/gold/toposort) | 🎯 **CF 1500+** |
+| 29 | **Минимальное остовное дерево (Крускал/Прим)** | 🔗 [USACO Guide: Minimum Spanning Trees](https://usaco.guide/gold/mst) | 🎯 **CF 1600+** |
+| 30 | **Префикс-функция (КМП)** | 🔗 [USACO Guide: String Matching (KMP)](https://usaco.guide/plat/string-search) | 🎯 **CF 1700+** |
+| 31 | **Бор (Trie)** | 🔗 [USACO Guide: Tries](https://usaco.guide/plat/trie) | 🎯 **CF 1700+** |
+| 32 | **Динамика по маскам** | 🔗 [USACO Guide: Bitmask DP](https://usaco.guide/gold/bitmask-dp) | 🎯 **CF 1700+** |
+| 33 | **Динамика на деревьях** | 🔗 [USACO Guide: DP on Trees](https://usaco.guide/gold/tree-dp) | 🎯 **CF 1700+** |
+| 34 | **Разреженная таблица (Sparse Table)** | 🔗 [USACO Guide: Sparse Table](https://usaco.guide/plat/sparse-table) | 🎯 **CF 1700+** |
 
 ---
 
