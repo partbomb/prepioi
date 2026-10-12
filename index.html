@@ -3,46 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CP-Roadmap — Путь к IOI</title>
-    <meta name="description" content="Интерактивное дерево прокачки для изучения спортивного программирования. От новичка до гроссмейстера.">
+    <title>CP-Roadmap — Интерактивное дерево навыков спортивного программирования</title>
+    <meta name="description" content="Интерактивное дерево навыков для спортивного программирования. 34 темы от Онай до Киын со ссылками на USACO Guide и рейтингами Codeforces.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         /* ===== DESIGN TOKENS ===== */
         :root {
-            --bg-primary: #0a0e1a;
-            --bg-secondary: #111827;
-            --bg-card: rgba(17, 24, 39, 0.8);
-            --bg-card-hover: rgba(30, 41, 59, 0.9);
-            --bg-elevated: rgba(30, 41, 59, 0.6);
+            --bg-primary: #090d16;
+            --bg-secondary: #0f172a;
+            --bg-card: rgba(15, 23, 42, 0.85);
+            --bg-card-hover: rgba(30, 41, 59, 0.95);
+            --bg-elevated: rgba(30, 41, 59, 0.7);
 
-            --text-primary: #f1f5f9;
+            --text-primary: #f8fafc;
             --text-secondary: #94a3b8;
             --text-muted: #64748b;
+
+            --tier-start: #8b5cf6;
+            --tier-easy: #10b981;
+            --tier-medium: #f59e0b;
+            --tier-hard: #ef4444;
 
             --accent-cyan: #06b6d4;
             --accent-violet: #8b5cf6;
             --accent-emerald: #10b981;
             --accent-amber: #f59e0b;
             --accent-rose: #f43f5e;
-            --accent-gold: #fbbf24;
 
             --gradient-main: linear-gradient(135deg, #06b6d4, #8b5cf6);
-            --gradient-warm: linear-gradient(135deg, #f59e0b, #f43f5e);
-            --gradient-cool: linear-gradient(135deg, #10b981, #06b6d4);
+            --gradient-easy: linear-gradient(135deg, #10b981, #06b6d4);
+            --gradient-med: linear-gradient(135deg, #f59e0b, #ef4444);
+            --gradient-hard: linear-gradient(135deg, #ef4444, #8b5cf6);
 
             --glass-bg: rgba(15, 23, 42, 0.75);
-            --glass-border: rgba(148, 163, 184, 0.12);
-            --glass-border-hover: rgba(148, 163, 184, 0.25);
+            --glass-border: rgba(148, 163, 184, 0.15);
+            --glass-border-hover: rgba(148, 163, 184, 0.35);
 
-            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
-            --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.4);
-            --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.5);
-            --shadow-glow-cyan: 0 0 20px rgba(6, 182, 212, 0.3);
-            --shadow-glow-violet: 0 0 20px rgba(139, 92, 246, 0.3);
-            --shadow-glow-emerald: 0 0 20px rgba(16, 185, 129, 0.3);
-            --shadow-glow-gold: 0 0 25px rgba(251, 191, 36, 0.4);
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.4);
+            --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.5);
+            --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.6);
+            --shadow-glow-cyan: 0 0 20px rgba(6, 182, 212, 0.35);
 
             --radius-sm: 8px;
             --radius-md: 12px;
@@ -51,14 +53,12 @@
             --radius-full: 9999px;
 
             --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+            --font-mono: 'JetBrains Mono', monospace;
 
-            --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
-            --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-fast: 0.15s ease;
+            --transition-normal: 0.25s ease;
         }
 
-        /* ===== RESET & BASE ===== */
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
         html { scroll-behavior: smooth; }
@@ -67,108 +67,80 @@
             font-family: var(--font-sans);
             background: var(--bg-primary);
             color: var(--text-primary);
-            line-height: 1.7;
+            line-height: 1.6;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
         }
 
-        /* Background pattern */
+        /* Ambient Glow Background */
         body::before {
             content: '';
             position: fixed;
             inset: 0;
             background:
-                radial-gradient(ellipse 80% 50% at 50% -20%, rgba(6, 182, 212, 0.08), transparent),
-                radial-gradient(ellipse 60% 40% at 80% 80%, rgba(139, 92, 246, 0.06), transparent),
-                radial-gradient(ellipse 50% 30% at 20% 60%, rgba(16, 185, 129, 0.04), transparent);
+                radial-gradient(ellipse 70% 40% at 50% -10%, rgba(6, 182, 212, 0.12), transparent),
+                radial-gradient(ellipse 60% 40% at 85% 70%, rgba(139, 92, 246, 0.08), transparent),
+                radial-gradient(ellipse 50% 30% at 15% 40%, rgba(16, 185, 129, 0.08), transparent);
             pointer-events: none;
             z-index: 0;
         }
 
-        /* Grid dots overlay */
+        /* Grid Background overlay */
         body::after {
             content: '';
             position: fixed;
             inset: 0;
-            background-image: radial-gradient(rgba(148, 163, 184, 0.06) 1px, transparent 1px);
+            background-image: radial-gradient(rgba(148, 163, 184, 0.08) 1px, transparent 1px);
             background-size: 32px 32px;
             pointer-events: none;
             z-index: 0;
         }
 
-        /* ===== UTILITY ===== */
-        .glass {
-            background: var(--glass-bg);
-            backdrop-filter: blur(16px) saturate(1.2);
-            -webkit-backdrop-filter: blur(16px) saturate(1.2);
-            border: 1px solid var(--glass-border);
-            border-radius: var(--radius-lg);
-        }
-
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 0 1.5rem;
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-
-        .section-title {
-            font-size: clamp(2rem, 5vw, 3rem);
-            font-weight: 800;
-            letter-spacing: -0.03em;
-            margin-bottom: 0.75rem;
-        }
-
-        .section-title .gradient-text {
-            background: var(--gradient-main);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .section-subtitle {
-            font-size: 1.1rem;
-            color: var(--text-secondary);
-            max-width: 600px;
-            margin: 0 auto;
+            position: relative;
+            z-index: 1;
         }
 
         /* ===== NAVBAR ===== */
         .navbar {
-            position: fixed;
+            position: sticky;
             top: 0;
-            left: 0;
-            right: 0;
-            z-index: 50;
-            padding: 1rem 0;
-            transition: var(--transition-normal);
-        }
-
-        .navbar.scrolled {
-            background: rgba(10, 14, 26, 0.85);
-            backdrop-filter: blur(12px);
+            z-index: 100;
+            padding: 0.85rem 0;
+            background: rgba(9, 13, 22, 0.85);
+            backdrop-filter: blur(16px);
             border-bottom: 1px solid var(--glass-border);
+            transition: var(--transition-normal);
         }
 
         .navbar-inner {
             display: flex;
             align-items: center;
             justify-content: space-between;
+            gap: 1rem;
         }
 
-        .navbar-logo {
-            font-size: 1.4rem;
-            font-weight: 800;
-            background: var(--gradient-main);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
             text-decoration: none;
-            letter-spacing: -0.02em;
+            color: var(--text-primary);
+            font-weight: 800;
+            font-size: 1.25rem;
+        }
+
+        .brand-badge {
+            background: linear-gradient(135deg, #06b6d4, #8b5cf6);
+            color: #fff;
+            padding: 0.2rem 0.5rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
         }
 
         .navbar-stats {
@@ -177,257 +149,375 @@
             gap: 1rem;
         }
 
-        .level-pill {
+        .level-badge {
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            padding: 0.4rem 1rem;
-            border-radius: var(--radius-full);
-            background: var(--bg-elevated);
+            background: var(--bg-secondary);
             border: 1px solid var(--glass-border);
+            padding: 0.4rem 0.85rem;
+            border-radius: var(--radius-full);
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .xp-bar-box {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+            min-width: 130px;
+        }
+
+        .xp-text {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .xp-track {
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius-full);
+            overflow: hidden;
+        }
+
+        .xp-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #10b981, #06b6d4);
+            width: 0%;
+            transition: width 0.4s ease;
+        }
+
+        .btn-github {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.45rem 0.9rem;
+            border-radius: var(--radius-md);
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            color: var(--text-primary);
+            text-decoration: none;
             font-size: 0.85rem;
             font-weight: 600;
             transition: var(--transition-fast);
         }
 
-        .level-pill:hover {
+        .btn-github:hover {
+            background: rgba(255, 255, 255, 0.1);
             border-color: var(--glass-border-hover);
-            box-shadow: var(--shadow-sm);
-        }
-
-        .xp-mini {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-            gap: 0.2rem;
-        }
-
-        .xp-mini-text {
-            font-size: 0.7rem;
-            color: var(--text-muted);
-            font-weight: 500;
-        }
-
-        .xp-mini-bar {
-            width: 100px;
-            height: 4px;
-            background: rgba(255,255,255,0.08);
-            border-radius: 2px;
-            overflow: hidden;
-        }
-
-        .xp-mini-fill {
-            height: 100%;
-            background: var(--gradient-main);
-            border-radius: 2px;
-            transition: width var(--transition-slow);
-            width: 0%;
         }
 
         /* ===== HERO ===== */
         .hero {
-            position: relative;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            padding: 4rem 0 2rem;
             text-align: center;
-            padding: 6rem 1.5rem 4rem;
-            z-index: 1;
-        }
-
-        .hero-orb {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.4;
-            animation: float 8s ease-in-out infinite;
-        }
-
-        .hero-orb-1 {
-            width: 400px; height: 400px;
-            background: rgba(6, 182, 212, 0.2);
-            top: 10%; left: 15%;
-            animation-delay: 0s;
-        }
-
-        .hero-orb-2 {
-            width: 350px; height: 350px;
-            background: rgba(139, 92, 246, 0.2);
-            bottom: 20%; right: 10%;
-            animation-delay: -3s;
-        }
-
-        .hero-orb-3 {
-            width: 250px; height: 250px;
-            background: rgba(16, 185, 129, 0.15);
-            top: 50%; left: 60%;
-            animation-delay: -5s;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            33% { transform: translate(30px, -20px) scale(1.05); }
-            66% { transform: translate(-20px, 15px) scale(0.95); }
-        }
-
-        .hero-content {
             position: relative;
-            z-index: 2;
-            max-width: 800px;
         }
 
-        .hero-badge {
+        .hero-badge-top {
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            padding: 0.4rem 1.2rem;
+            padding: 0.35rem 1rem;
             border-radius: var(--radius-full);
             background: rgba(6, 182, 212, 0.1);
-            border: 1px solid rgba(6, 182, 212, 0.2);
+            border: 1px solid rgba(6, 182, 212, 0.25);
             color: var(--accent-cyan);
             font-size: 0.85rem;
-            font-weight: 500;
-            margin-bottom: 2rem;
-            animation: fadeInUp 0.8s ease-out;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
         }
 
-        .hero-badge .dot {
-            width: 6px; height: 6px;
-            background: var(--accent-emerald);
+        .hero-badge-top .pulse-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--accent-cyan);
             border-radius: 50%;
-            animation: blink 2s infinite;
+            box-shadow: 0 0 10px var(--accent-cyan);
+            animation: pulse 2s infinite;
         }
 
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.3; }
+        @keyframes pulse {
+            0% { transform: scale(0.95); opacity: 0.8; }
+            50% { transform: scale(1.3); opacity: 1; }
+            100% { transform: scale(0.95); opacity: 0.8; }
         }
 
         .hero h1 {
-            font-size: clamp(2.5rem, 7vw, 5rem);
+            font-size: clamp(2.2rem, 5vw, 3.8rem);
             font-weight: 900;
-            letter-spacing: -0.04em;
-            line-height: 1.1;
-            margin-bottom: 1.5rem;
-            animation: fadeInUp 0.8s ease-out 0.1s both;
+            line-height: 1.15;
+            letter-spacing: -0.02em;
+            margin-bottom: 1.25rem;
         }
 
-        .hero h1 .gradient-text {
-            background: var(--gradient-main);
+        .gradient-text {
+            background: linear-gradient(135deg, #38bdf8, #818cf8, #c084fc);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
         }
 
         .hero-desc {
-            font-size: 1.2rem;
+            max-width: 720px;
+            margin: 0 auto 2.5rem;
             color: var(--text-secondary);
-            margin-bottom: 2.5rem;
-            line-height: 1.8;
-            animation: fadeInUp 0.8s ease-out 0.2s both;
+            font-size: 1.1rem;
         }
 
-        .hero-actions {
+        /* ===== BEGINNER ROADMAP CARDS ===== */
+        .beginner-card-wrapper {
+            background: var(--bg-card);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-xl);
+            padding: 1.75rem;
+            backdrop-filter: blur(16px);
+            margin-bottom: 3.5rem;
+            box-shadow: var(--shadow-md);
+        }
+
+        .beginner-header {
             display: flex;
-            gap: 1rem;
-            justify-content: center;
+            align-items: center;
+            justify-content: space-between;
             flex-wrap: wrap;
-            animation: fadeInUp 0.8s ease-out 0.3s both;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+            padding-bottom: 1rem;
         }
 
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        .beginner-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            color: #fff;
         }
 
-        .btn {
-            display: inline-flex;
+        .beginner-steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.25rem;
+        }
+
+        .step-card {
+            background: rgba(30, 41, 59, 0.5);
+            border: 1px solid rgba(148, 163, 184, 0.1);
+            border-radius: var(--radius-lg);
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            transition: var(--transition-normal);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .step-card:hover {
+            transform: translateY(-2px);
+            border-color: rgba(6, 182, 212, 0.3);
+            background: rgba(30, 41, 59, 0.8);
+        }
+
+        .step-number {
+            font-size: 0.75rem;
+            font-weight: 800;
+            color: var(--accent-cyan);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .step-heading {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #fff;
+            display: flex;
             align-items: center;
             gap: 0.5rem;
-            padding: 0.85rem 2rem;
-            border: none;
+        }
+
+        .step-text {
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .step-action-btn {
+            margin-top: auto;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.4rem;
+            padding: 0.5rem 0.9rem;
+            border-radius: var(--radius-md);
+            font-size: 0.82rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition-fast);
+        }
+
+        .btn-stepik {
+            background: rgba(139, 92, 246, 0.15);
+            color: #a78bfa;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+        }
+        .btn-stepik:hover { background: rgba(139, 92, 246, 0.25); color: #c4b5fd; }
+
+        .btn-cf {
+            background: rgba(16, 185, 129, 0.15);
+            color: #34d399;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+        .btn-cf:hover { background: rgba(16, 185, 129, 0.25); color: #6ee7b7; }
+
+        .btn-tree-jump {
+            background: rgba(6, 182, 212, 0.15);
+            color: #38bdf8;
+            border: 1px solid rgba(6, 182, 212, 0.3);
+            cursor: pointer;
+        }
+        .btn-tree-jump:hover { background: rgba(6, 182, 212, 0.25); color: #7dd3fc; }
+
+        /* ===== CONTROLS & FILTERS ===== */
+        .tree-header-controls {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .filter-tabs {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: rgba(30, 41, 59, 0.6);
+            border: 1px solid var(--glass-border);
+            color: var(--text-secondary);
+            padding: 0.45rem 0.9rem;
             border-radius: var(--radius-full);
-            font-family: var(--font-sans);
-            font-size: 1rem;
+            font-size: 0.82rem;
             font-weight: 600;
             cursor: pointer;
-            transition: var(--transition-normal);
-            text-decoration: none;
+            transition: var(--transition-fast);
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
         }
 
-        .btn-primary {
-            background: var(--gradient-main);
-            color: white;
-            box-shadow: 0 4px 15px rgba(6, 182, 212, 0.25);
+        .filter-btn:hover {
+            color: #fff;
+            border-color: var(--glass-border-hover);
         }
 
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(6, 182, 212, 0.35);
+        .filter-btn.active {
+            background: #fff;
+            color: #090d16;
+            border-color: #fff;
         }
 
-        .btn-secondary {
-            background: var(--bg-elevated);
-            color: var(--text-primary);
+        .search-box {
+            position: relative;
+            min-width: 260px;
+        }
+
+        .search-input {
+            width: 100%;
+            background: rgba(30, 41, 59, 0.6);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-full);
+            padding: 0.5rem 1rem 0.5rem 2.2rem;
+            color: #fff;
+            font-size: 0.85rem;
+            outline: none;
+            transition: var(--transition-fast);
+        }
+
+        .search-input:focus {
+            border-color: var(--accent-cyan);
+            background: rgba(30, 41, 59, 0.9);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 0.8rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        /* ===== TREE CANVAS VIEW ===== */
+        .tree-view-wrapper {
+            position: relative;
+            background: rgba(11, 17, 32, 0.7);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+            margin-bottom: 4rem;
+        }
+
+        .tree-toolbar {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            z-index: 10;
+            display: flex;
+            gap: 0.5rem;
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(8px);
+            padding: 0.35rem;
+            border-radius: var(--radius-md);
             border: 1px solid var(--glass-border);
         }
 
-        .btn-secondary:hover {
-            background: var(--bg-card-hover);
-            border-color: var(--glass-border-hover);
-            transform: translateY(-2px);
-        }
-
-        /* Hero stats row */
-        .hero-stats {
+        .tool-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            width: 32px;
+            height: 32px;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
             display: flex;
+            align-items: center;
             justify-content: center;
-            gap: 3rem;
-            margin-top: 4rem;
-            animation: fadeInUp 0.8s ease-out 0.5s both;
+            font-size: 1rem;
+            transition: var(--transition-fast);
         }
 
-        .hero-stat {
-            text-align: center;
+        .tool-btn:hover {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.1);
         }
 
-        .hero-stat-value {
-            font-size: 2rem;
-            font-weight: 800;
-            background: var(--gradient-main);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero-stat-label {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            font-weight: 500;
-        }
-
-        /* ===== SKILL TREE SECTION ===== */
-        .skill-tree-section {
+        .tree-viewport {
+            width: 100%;
+            height: 720px;
+            overflow: auto;
             position: relative;
-            z-index: 1;
-            padding: 5rem 0;
+            cursor: grab;
+            user-select: none;
         }
 
-        .tree-wrapper {
-            display: flex;
-            justify-content: center;
-            overflow-x: auto;
-            padding: 2rem 0;
-            -webkit-overflow-scrolling: touch;
+        .tree-viewport:active {
+            cursor: grabbing;
         }
 
-        .tree-container {
+        .tree-canvas {
+            width: 1300px;
+            height: 1200px;
             position: relative;
-            width: 820px;
-            min-width: 820px;
-            height: 1100px;
+            transform-origin: 0 0;
+            transition: transform 0.15s ease-out;
         }
 
         #tree-svg {
@@ -435,1139 +525,1044 @@
             inset: 0;
             width: 100%;
             height: 100%;
+            pointer-events: none;
             z-index: 1;
         }
 
-        #nodes-container {
-            position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 2;
-        }
-
-        /* SKILL NODES */
-        .node {
-            position: absolute;
-            transform: translate(-50%, -50%);
-            width: 150px;
-            padding: 1rem 0.75rem;
-            border-radius: var(--radius-md);
-            background: var(--bg-card);
-            backdrop-filter: blur(8px);
-            border: 2px solid var(--glass-border);
-            cursor: pointer;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            transition: all var(--transition-normal);
-            user-select: none;
-        }
-
-        .node:hover {
-            transform: translate(-50%, calc(-50% - 6px));
-            box-shadow: var(--shadow-md);
-            border-color: var(--glass-border-hover);
-            background: var(--bg-card-hover);
-        }
-
-        .node-icon {
-            font-size: 1.8rem;
-            margin-bottom: 0.4rem;
-            line-height: 1;
-        }
-
-        .node-name {
-            font-weight: 600;
-            font-size: 0.8rem;
-            line-height: 1.3;
-            margin-bottom: 0.4rem;
-            color: var(--text-primary);
-        }
-
-        .node-platform {
-            font-size: 0.65rem;
-            padding: 0.15rem 0.5rem;
-            border-radius: var(--radius-full);
-            background: rgba(255,255,255,0.06);
-            color: var(--text-muted);
-            font-weight: 500;
-            letter-spacing: 0.02em;
-        }
-
-        /* Node states */
-        .node.locked {
-            opacity: 0.35;
-            filter: grayscale(0.8);
-            cursor: not-allowed;
-        }
-        .node.locked:hover {
-            transform: translate(-50%, -50%);
-            box-shadow: none;
-            border-color: var(--glass-border);
-            background: var(--bg-card);
-        }
-
-        .node.available {
-            border-color: var(--accent-cyan);
-            box-shadow: 0 0 0 0 rgba(6, 182, 212, 0.4);
-            animation: pulseNode 2.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-        }
-
-        @keyframes pulseNode {
-            0%, 100% { box-shadow: 0 0 0 0 rgba(6, 182, 212, 0.35); }
-            50% { box-shadow: 0 0 0 8px rgba(6, 182, 212, 0); }
-        }
-
-        .node.available:hover {
-            animation: none;
-            box-shadow: var(--shadow-glow-cyan);
-        }
-
-        .node.in-progress {
-            border-color: var(--accent-amber);
-            box-shadow: 0 0 12px rgba(245, 158, 11, 0.15);
-        }
-
-        .node.completed {
-            border-color: var(--accent-emerald);
-            box-shadow: var(--shadow-glow-emerald);
-            background: rgba(16, 185, 129, 0.08);
-        }
-
-        .node.completed .node-icon::after {
-            content: ' ✓';
-            font-size: 0.9rem;
-        }
-
-        .node.mastered {
-            border-color: var(--accent-gold);
-            box-shadow: var(--shadow-glow-gold);
-            background: linear-gradient(135deg, rgba(251, 191, 36, 0.08), rgba(245, 158, 11, 0.05));
-        }
-
-        /* SVG edges */
+        /* Edges */
         .edge {
-            transition: stroke var(--transition-normal), opacity var(--transition-normal);
+            stroke: rgba(148, 163, 184, 0.18);
+            stroke-width: 2;
+            fill: none;
+            transition: stroke 0.3s ease, stroke-width 0.3s ease;
         }
 
         .edge.active {
-            filter: drop-shadow(0 0 4px rgba(16, 185, 129, 0.4));
+            stroke: #10b981;
+            stroke-width: 2.5;
+            filter: drop-shadow(0 0 4px rgba(16, 185, 129, 0.6));
         }
 
-        /* ===== CONTEST SECTION ===== */
-        .contest-section {
-            position: relative;
-            z-index: 1;
-            padding: 5rem 0;
-        }
-
-        .contest-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 1.25rem;
-        }
-
-        .contest-card {
-            padding: 1.5rem;
+        /* Tier Zone Backgrounds */
+        .tier-zone {
+            position: absolute;
             border-radius: var(--radius-lg);
+            border: 1px dashed rgba(148, 163, 184, 0.15);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .tier-zone-label {
+            position: absolute;
+            top: 10px;
+            left: 15px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .tier-zone-start {
+            background: rgba(139, 92, 246, 0.03);
+            border-color: rgba(139, 92, 246, 0.2);
+            color: #a78bfa;
+        }
+
+        .tier-zone-easy {
+            background: rgba(16, 185, 129, 0.03);
+            border-color: rgba(16, 185, 129, 0.2);
+            color: #34d399;
+        }
+
+        .tier-zone-med {
+            background: rgba(245, 158, 11, 0.03);
+            border-color: rgba(245, 158, 11, 0.2);
+            color: #fbbf24;
+        }
+
+        .tier-zone-hard {
+            background: rgba(239, 68, 68, 0.03);
+            border-color: rgba(239, 68, 68, 0.2);
+            color: #f87171;
+        }
+
+        /* ===== NODES ===== */
+        .node-card {
+            position: absolute;
+            width: 150px;
             background: var(--bg-card);
             border: 1px solid var(--glass-border);
+            border-radius: var(--radius-md);
+            padding: 0.75rem 0.6rem;
+            cursor: pointer;
+            z-index: 2;
+            transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease, border-color 0.2s ease;
+            text-align: center;
             display: flex;
             flex-direction: column;
-            gap: 0.75rem;
-            transition: all var(--transition-normal);
-        }
-
-        .contest-card:hover {
-            transform: translateY(-4px);
-            border-color: var(--glass-border-hover);
-            box-shadow: var(--shadow-md);
-        }
-
-        .contest-card-top {
-            display: flex;
-            justify-content: space-between;
             align-items: center;
+            gap: 0.35rem;
         }
 
-        .contest-card-index {
-            font-size: 1.8rem;
+        .node-card:hover {
+            transform: translateY(-4px) scale(1.05);
+            box-shadow: var(--shadow-lg);
+            border-color: rgba(255, 255, 255, 0.4);
+            z-index: 10;
+        }
+
+        .node-card.locked {
+            opacity: 0.55;
+            filter: grayscale(0.5);
+        }
+
+        .node-card.completed {
+            border-color: #10b981;
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.3);
+        }
+
+        .node-card.completed::after {
+            content: '✓';
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            background: #10b981;
+            color: #fff;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            font-size: 0.65rem;
             font-weight: 900;
-            color: rgba(148, 163, 184, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+        }
+
+        .node-icon {
+            font-size: 1.5rem;
             line-height: 1;
         }
 
-        .rating-badge {
+        .node-title {
             font-size: 0.75rem;
             font-weight: 700;
-            padding: 0.25rem 0.65rem;
-            border-radius: var(--radius-full);
-            letter-spacing: 0.03em;
+            line-height: 1.25;
+            color: #fff;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
         }
 
-        .rating-badge.r800 { color: #9CA3AF; background: rgba(156,163,175,0.12); }
-        .rating-badge.r900 { color: #10B981; background: rgba(16,185,129,0.12); }
-        .rating-badge.r1000 { color: #06B6D4; background: rgba(6,182,212,0.12); }
-        .rating-badge.r1100 { color: #3B82F6; background: rgba(59,130,246,0.12); }
-        .rating-badge.r1200 { color: #8B5CF6; background: rgba(139,92,246,0.12); }
-        .rating-badge.r1500 { color: #F43F5E; background: rgba(244,63,94,0.12); }
-
-        .contest-card h3 {
-            font-size: 1.1rem;
-            font-weight: 700;
-            letter-spacing: -0.01em;
-        }
-
-        .contest-card-topic {
-            font-size: 0.8rem;
-            color: var(--accent-violet);
-            font-weight: 500;
-        }
-
-        .contest-card-desc {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            line-height: 1.6;
-            flex-grow: 1;
-        }
-
-        .contest-card-link {
-            display: inline-flex;
+        .node-meta {
+            display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 0.4rem;
-            text-decoration: none;
-            color: var(--text-primary);
-            background: rgba(255,255,255,0.06);
-            border: 1px solid var(--glass-border);
-            padding: 0.6rem 1rem;
+            gap: 0.3rem;
+            font-size: 0.68rem;
+            font-weight: 600;
+        }
+
+        .cf-badge {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 0.1rem 0.35rem;
             border-radius: var(--radius-sm);
-            font-size: 0.85rem;
-            font-weight: 500;
-            transition: var(--transition-fast);
+            color: var(--accent-cyan);
+            font-family: var(--font-mono);
         }
 
-        .contest-card-link:hover {
-            background: var(--accent-violet);
-            border-color: var(--accent-violet);
+        .tier-badge {
+            font-size: 0.65rem;
+            padding: 0.1rem 0.35rem;
+            border-radius: var(--radius-sm);
+            font-weight: 700;
         }
 
-        /* ===== MODAL ===== */
+        .tier-badge.start { background: rgba(139, 92, 246, 0.2); color: #c4b5fd; }
+        .tier-badge.easy { background: rgba(16, 185, 129, 0.2); color: #6ee7b7; }
+        .tier-badge.medium { background: rgba(245, 158, 11, 0.2); color: #fcd34d; }
+        .tier-badge.hard { background: rgba(239, 68, 68, 0.2); color: #fca5a5; }
+
+        /* ===== MODAL DRAWER ===== */
         .modal {
             position: fixed;
             inset: 0;
-            z-index: 200;
+            z-index: 1000;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 1rem;
-            opacity: 1;
-            visibility: visible;
-            transition: all var(--transition-normal);
+            padding: 1.5rem;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s ease;
         }
 
-        .modal.hidden {
-            opacity: 0;
-            visibility: hidden;
-            pointer-events: none;
+        .modal.active {
+            opacity: 1;
+            pointer-events: auto;
         }
 
         .modal-overlay {
             position: absolute;
             inset: 0;
-            background: rgba(0, 0, 0, 0.7);
+            background: rgba(0, 0, 0, 0.75);
             backdrop-filter: blur(8px);
         }
 
-        .modal-panel {
+        .modal-card {
             position: relative;
-            width: 100%;
-            max-width: 960px;
-            max-height: 90vh;
             background: var(--bg-secondary);
-            border: 1px solid var(--glass-border);
+            border: 1px solid var(--glass-border-hover);
             border-radius: var(--radius-xl);
-            overflow: hidden;
+            width: 100%;
+            max-width: 680px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: var(--shadow-lg);
+            z-index: 10;
+            transform: scale(0.95) translateY(10px);
+            transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
             display: flex;
             flex-direction: column;
-            box-shadow: var(--shadow-lg);
+        }
+
+        .modal.active .modal-card {
             transform: scale(1) translateY(0);
-            transition: transform var(--transition-normal);
         }
 
-        .modal.hidden .modal-panel {
-            transform: scale(0.95) translateY(10px);
-        }
-
-        .modal-close {
-            position: absolute;
-            top: 1.25rem;
-            right: 1.25rem;
-            width: 36px; height: 36px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(255,255,255,0.06);
-            border: 1px solid var(--glass-border);
-            border-radius: var(--radius-sm);
-            color: var(--text-secondary);
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: var(--transition-fast);
-            z-index: 10;
-        }
-
-        .modal-close:hover {
-            background: rgba(244, 63, 94, 0.15);
-            color: var(--accent-rose);
-            border-color: rgba(244, 63, 94, 0.3);
-        }
-
-        .modal-top {
-            padding: 2rem 2.5rem;
+        .modal-header {
+            padding: 1.5rem;
             border-bottom: 1px solid var(--glass-border);
             display: flex;
-            align-items: center;
-            gap: 1.25rem;
-            background: rgba(0,0,0,0.15);
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 1rem;
         }
 
-        .modal-icon-box {
-            width: 64px; height: 64px;
+        .modal-header-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .modal-icon-big {
+            font-size: 2.2rem;
+            background: rgba(255, 255, 255, 0.05);
+            width: 56px;
+            height: 56px;
+            border-radius: var(--radius-lg);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2.2rem;
-            background: rgba(255,255,255,0.04);
             border: 1px solid var(--glass-border);
-            border-radius: var(--radius-md);
-            flex-shrink: 0;
         }
 
-        .modal-info h2 {
-            font-size: 1.4rem;
-            font-weight: 700;
-            letter-spacing: -0.02em;
-            margin-bottom: 0.3rem;
+        .modal-title-box h3 {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 0.35rem;
         }
 
-        .platform-tag {
-            display: inline-block;
-            padding: 0.2rem 0.7rem;
-            background: var(--accent-violet);
-            border-radius: var(--radius-full);
-            font-size: 0.7rem;
-            font-weight: 600;
-            letter-spacing: 0.04em;
-            text-transform: uppercase;
-        }
-
-        .modal-body {
-            padding: 2rem 2.5rem;
-            overflow-y: auto;
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 2rem;
-        }
-
-        @media (min-width: 768px) {
-            .modal-body {
-                grid-template-columns: 1.2fr 1fr;
-            }
-        }
-
-        /* Theory */
-        .theory h3, .tasks-panel h3 {
-            font-size: 1.1rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
+        .modal-badges {
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            flex-wrap: wrap;
         }
 
-        .theory h3::before { content: '📖'; }
-        .tasks-panel h3::before { content: '✅'; }
+        .modal-close-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.25rem;
+            line-height: 1;
+            border-radius: var(--radius-sm);
+            transition: var(--transition-fast);
+        }
 
-        .theory-text {
-            font-size: 0.92rem;
+        .modal-close-btn:hover {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        .usaco-banner {
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0.15), rgba(139, 92, 246, 0.15));
+            border: 1px solid rgba(6, 182, 212, 0.3);
+            border-radius: var(--radius-lg);
+            padding: 1rem 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .usaco-banner-text {
+            display: flex;
+            flex-direction: column;
+            gap: 0.2rem;
+        }
+
+        .usaco-title {
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: #fff;
+        }
+
+        .usaco-sub {
+            font-size: 0.8rem;
             color: var(--text-secondary);
-            line-height: 1.8;
-            margin-bottom: 1.25rem;
         }
 
-        .theory-text strong { color: var(--text-primary); }
-
-        .key-points-title {
-            font-size: 0.9rem;
-            font-weight: 600;
-            margin: 1.25rem 0 0.5rem;
-            color: var(--accent-cyan);
+        .btn-usaco-action {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: linear-gradient(135deg, #06b6d4, #8b5cf6);
+            color: #fff;
+            text-decoration: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: var(--radius-md);
+            font-size: 0.88rem;
+            font-weight: 700;
+            box-shadow: 0 4px 14px rgba(6, 182, 212, 0.4);
+            transition: var(--transition-fast);
         }
 
-        .key-points {
+        .btn-usaco-action:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(6, 182, 212, 0.6);
+        }
+
+        .info-block {
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            padding: 1rem 1.25rem;
+        }
+
+        .info-block-title {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .info-block-text {
+            font-size: 0.92rem;
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .key-points-list {
             list-style: none;
             display: flex;
             flex-direction: column;
             gap: 0.4rem;
+            margin-top: 0.5rem;
         }
 
-        .key-points li {
+        .key-points-list li {
             position: relative;
-            padding-left: 1.4rem;
-            font-size: 0.85rem;
+            padding-left: 1.2rem;
+            font-size: 0.88rem;
             color: var(--text-secondary);
-            line-height: 1.5;
         }
 
-        .key-points li::before {
-            content: '▸';
+        .key-points-list li::before {
+            content: '•';
             position: absolute;
-            left: 0;
+            left: 0.2rem;
             color: var(--accent-cyan);
             font-weight: bold;
         }
 
-        /* Code block */
-        .code-block {
-            margin-top: 1rem;
-            background: #0d1117;
-            border: 1px solid rgba(148, 163, 184, 0.1);
-            border-radius: var(--radius-sm);
-            overflow: hidden;
-        }
-
-        .code-block-header {
+        .prereq-tags {
             display: flex;
-            align-items: center;
             gap: 0.5rem;
-            padding: 0.6rem 1rem;
-            background: rgba(255,255,255,0.03);
-            border-bottom: 1px solid rgba(148, 163, 184, 0.08);
-            font-size: 0.75rem;
-            color: var(--text-muted);
-            font-family: var(--font-mono);
+            flex-wrap: wrap;
+            margin-top: 0.4rem;
         }
 
-        .code-block-header .dot {
-            width: 8px; height: 8px;
-            border-radius: 50%;
-        }
-
-        .code-block-header .dot-r { background: #ff5f57; }
-        .code-block-header .dot-y { background: #febc2e; }
-        .code-block-header .dot-g { background: #28c840; }
-
-        .code-block pre {
-            padding: 1rem;
-            margin: 0;
-            overflow-x: auto;
-        }
-
-        .code-block code {
-            font-family: var(--font-mono);
-            font-size: 0.82rem;
-            color: #c9d1d9;
-            line-height: 1.6;
-        }
-
-        /* Syntax highlighting colors */
-        .code-block code .kw { color: #ff7b72; }
-        .code-block code .fn { color: #d2a8ff; }
-        .code-block code .str { color: #a5d6ff; }
-        .code-block code .cmt { color: #8b949e; font-style: italic; }
-        .code-block code .num { color: #79c0ff; }
-
-        /* Tasks panel */
-        .progress-wrap {
-            margin-bottom: 1.25rem;
-        }
-
-        .progress-info {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            margin-bottom: 0.4rem;
-        }
-
-        .progress-track {
-            width: 100%;
-            height: 6px;
-            background: rgba(255,255,255,0.06);
-            border-radius: 3px;
-            overflow: hidden;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: var(--gradient-cool);
-            border-radius: 3px;
-            transition: width var(--transition-slow);
-            width: 0%;
-        }
-
-        .progress-fill.done {
-            background: var(--accent-emerald);
-        }
-
-        .task-list {
-            display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
-        }
-
-        .task-item {
-            background: rgba(0,0,0,0.2);
+        .prereq-tag {
+            background: rgba(255, 255, 255, 0.06);
             border: 1px solid var(--glass-border);
+            padding: 0.25rem 0.6rem;
             border-radius: var(--radius-sm);
-            padding: 0.85rem 1rem;
-            transition: border-color var(--transition-fast);
-        }
-
-        .task-item:hover {
-            border-color: var(--glass-border-hover);
-        }
-
-        .task-item-top {
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-        }
-
-        .task-cb {
-            width: 18px; height: 18px;
-            accent-color: var(--accent-emerald);
+            font-size: 0.8rem;
+            color: var(--text-secondary);
             cursor: pointer;
-            flex-shrink: 0;
-        }
-
-        .task-label {
-            font-weight: 600;
-            font-size: 0.9rem;
-            cursor: pointer;
-            flex-grow: 1;
-        }
-
-        .task-required {
-            color: var(--accent-rose);
-            font-size: 0.7rem;
-        }
-
-        .task-bonus {
-            color: var(--text-muted);
-            font-size: 0.7rem;
-            font-weight: 400;
-        }
-
-        .task-actions {
-            display: flex;
-            gap: 0.4rem;
-            margin-top: 0.5rem;
-            padding-left: 1.6rem;
-        }
-
-        .btn-sm {
-            font-family: var(--font-sans);
-            font-size: 0.75rem;
-            font-weight: 500;
-            padding: 0.3rem 0.7rem;
-            border-radius: var(--radius-sm);
-            border: none;
-            cursor: pointer;
-            text-decoration: none;
             transition: var(--transition-fast);
         }
 
-        .btn-solve {
-            background: var(--accent-violet);
-            color: white;
+        .prereq-tag:hover {
+            color: #fff;
+            border-color: var(--accent-cyan);
         }
 
-        .btn-solve:hover { background: #7c3aed; }
-
-        .btn-hint-toggle {
-            background: rgba(255,255,255,0.06);
-            color: var(--text-secondary);
-            border: 1px solid var(--glass-border);
-        }
-
-        .btn-hint-toggle:hover {
-            background: rgba(255,255,255,0.1);
-            color: var(--text-primary);
-        }
-
-        .hint-content {
-            display: none;
+        .practice-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
             margin-top: 0.5rem;
-            margin-left: 1.6rem;
-            padding: 0.6rem 0.8rem;
-            background: rgba(6, 182, 212, 0.06);
-            border-left: 3px solid var(--accent-cyan);
-            border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-            font-size: 0.82rem;
-            color: var(--text-secondary);
-            line-height: 1.6;
         }
 
-        .hint-content.visible { display: block; }
+        .practice-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(30, 41, 59, 0.6);
+            border: 1px solid rgba(148, 163, 184, 0.1);
+            padding: 0.5rem 0.85rem;
+            border-radius: var(--radius-md);
+            text-decoration: none;
+            color: #fff;
+            font-size: 0.85rem;
+            transition: var(--transition-fast);
+        }
+
+        .practice-item:hover {
+            background: rgba(30, 41, 59, 0.9);
+            border-color: rgba(6, 182, 212, 0.3);
+            transform: translateX(4px);
+        }
+
+        .modal-footer {
+            padding: 1.25rem 1.5rem;
+            border-top: 1px solid var(--glass-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            background: rgba(11, 17, 32, 0.5);
+        }
+
+        .btn-toggle-learned {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.65rem 1.25rem;
+            border-radius: var(--radius-md);
+            border: 1px solid rgba(16, 185, 129, 0.4);
+            background: rgba(16, 185, 129, 0.15);
+            color: #34d399;
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+
+        .btn-toggle-learned:hover {
+            background: rgba(16, 185, 129, 0.25);
+            color: #6ee7b7;
+        }
+
+        .btn-toggle-learned.is-completed {
+            background: #10b981;
+            color: #fff;
+            border-color: #10b981;
+        }
 
         /* ===== FOOTER ===== */
         .footer {
-            position: relative;
-            z-index: 1;
+            border-top: 1px solid var(--glass-border);
             padding: 3rem 0;
             text-align: center;
-            border-top: 1px solid var(--glass-border);
-            margin-top: 4rem;
-        }
-
-        .footer p {
-            font-size: 0.85rem;
             color: var(--text-muted);
-            margin-bottom: 0.3rem;
+            font-size: 0.88rem;
         }
 
         .footer a {
             color: var(--accent-cyan);
             text-decoration: none;
-            transition: color var(--transition-fast);
         }
 
-        .footer a:hover { color: var(--accent-violet); }
+        .footer a:hover {
+            text-decoration: underline;
+        }
 
-        /* ===== RESPONSIVE ===== */
+        /* Responsive */
         @media (max-width: 768px) {
-            .hero-stats { gap: 1.5rem; flex-wrap: wrap; }
-            .hero-stat-value { font-size: 1.5rem; }
             .navbar-stats { display: none; }
-            .contest-grid { grid-template-columns: 1fr; }
-            .modal-top { padding: 1.5rem; }
-            .modal-body { padding: 1.5rem; }
-            .tree-wrapper { padding: 1rem; }
+            .hero { padding: 2.5rem 0 1.5rem; }
+            .tree-viewport { height: 600px; }
+            .modal-card { max-height: 95vh; }
         }
-
-        /* ===== SCROLLBAR ===== */
-        ::-webkit-scrollbar { width: 8px; height: 8px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: rgba(148,163,184,0.2); border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: rgba(148,163,184,0.3); }
     </style>
 </head>
 <body>
 
     <!-- NAVBAR -->
-    <nav class="navbar" id="navbar">
+    <nav class="navbar">
         <div class="container navbar-inner">
-            <a href="#" class="navbar-logo">⚡ CP-Roadmap</a>
+            <a href="#" class="navbar-brand">
+                <span>⚡ CP-Roadmap</span>
+                <span class="brand-badge">IOI 2026</span>
+            </a>
             <div class="navbar-stats">
-                <div class="level-pill">
-                    <span id="nav-level-icon">🥚</span>
-                    <span id="nav-level-name">Новичок</span>
+                <div class="level-badge" id="player-level-badge">
+                    <span id="player-level-icon">🥚</span>
+                    <span id="player-level-name">Новичок</span>
                 </div>
-                <div class="xp-mini">
-                    <span class="xp-mini-text" id="nav-xp-text">0 / 300 XP</span>
-                    <div class="xp-mini-bar"><div class="xp-mini-fill" id="nav-xp-fill"></div></div>
+                <div class="xp-bar-box">
+                    <div class="xp-text">
+                        <span id="player-xp-label">0 XP</span>
+                        <span id="player-topics-count">0 / 34</span>
+                    </div>
+                    <div class="xp-track">
+                        <div class="xp-fill" id="player-xp-fill"></div>
+                    </div>
                 </div>
+                <a href="https://github.com/partbomb/prepioi" target="_blank" class="btn-github">
+                    ⭐ GitHub
+                </a>
             </div>
         </div>
     </nav>
 
     <!-- HERO -->
-    <section class="hero" id="hero">
-        <div class="hero-orb hero-orb-1"></div>
-        <div class="hero-orb hero-orb-2"></div>
-        <div class="hero-orb hero-orb-3"></div>
-        <div class="hero-content">
-            <div class="hero-badge"><span class="dot"></span> Открытая платформа для школьников</div>
-            <h1>Стань мастером<br><span class="gradient-text">олимпиадного кода</span></h1>
-            <p class="hero-desc">
-                Интерактивное дерево прокачки, пошаговые уроки и подобранные задачи —
-                всё, что нужно для пути от «Hello World» до IOI.
-            </p>
-            <div class="hero-actions">
-                <button class="btn btn-primary" id="btn-start">🚀 Начать путь</button>
-                <a href="#diagnostic-section" class="btn btn-secondary">📋 Пройти тест уровня</a>
-            </div>
-            <div class="hero-stats">
-                <div class="hero-stat">
-                    <div class="hero-stat-value">15</div>
-                    <div class="hero-stat-label">Навыков</div>
-                </div>
-                <div class="hero-stat">
-                    <div class="hero-stat-value">40+</div>
-                    <div class="hero-stat-label">Задач</div>
-                </div>
-                <div class="hero-stat">
-                    <div class="hero-stat-value">3</div>
-                    <div class="hero-stat-label">Платформы</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- SKILL TREE -->
-    <section class="skill-tree-section" id="skill-tree-section">
-        <div class="container section-header">
-            <h2 class="section-title">🌳 <span class="gradient-text">Дерево прокачки</span></h2>
-            <p class="section-subtitle">Проходи темы, решай задачи и открывай новые ветки навыков. Каждый узел — твой шаг к вершине.</p>
-        </div>
-        <div class="tree-wrapper">
-            <div class="tree-container" id="tree-container">
-                <svg id="tree-svg"></svg>
-                <div id="nodes-container"></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- DIAGNOSTIC CONTEST -->
-    <section class="contest-section" id="diagnostic-section">
+    <section class="hero">
         <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">🏆 <span class="gradient-text">Диагностический контест</span></h2>
-                <p class="section-subtitle" id="diagnostic-desc">Загрузка...</p>
+            <div class="hero-badge-top">
+                <span class="pulse-dot"></span>
+                <span>Навигатор по олимпиадному программированию</span>
             </div>
-            <div class="contest-grid" id="contest-grid"></div>
+            <h1>Интерактивное дерево<br><span class="gradient-text">навыков по алгоритмам</span></h1>
+            <p class="hero-desc">
+                34 ключевые олимпиадные темы, структурированные по уровням сложности (Онай → Средни → Киын) 
+                с прямыми уроками на <strong>USACO Guide</strong> и целевыми рейтингами на <strong>Codeforces</strong>.
+            </p>
+
+            <!-- BEGINNER INSTRUCTION CARD -->
+            <div class="beginner-card-wrapper">
+                <div class="beginner-header">
+                    <div class="beginner-title">
+                        <span>🚀</span>
+                        <span>Пошаговый план: как правильно прокачиваться</span>
+                    </div>
+                    <div style="font-size: 0.85rem; color: var(--text-secondary);">
+                        От синтаксиса до мастера спортивного программирования
+                    </div>
+                </div>
+
+                <div class="beginner-steps-grid">
+                    <!-- Step 1 -->
+                    <div class="step-card">
+                        <span class="step-number">Шаг 1 • База</span>
+                        <div class="step-heading">
+                            <span>🎓</span>
+                            <span>Выучи основы C++</span>
+                        </div>
+                        <p class="step-text">
+                            Если ты новичок и еще не знаешь C++, сначала обязательно пройди бесплатный базовый курс на Stepik (переменные, циклы, функции, векторы).
+                        </p>
+                        <a href="https://stepik.org/course/363/promo" target="_blank" class="step-action-btn btn-stepik">
+                            📚 Открыть курс на Stepik →
+                        </a>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="step-card">
+                        <span class="step-number">Шаг 2 • Практика</span>
+                        <div class="step-heading">
+                            <span>⚔️</span>
+                            <span>Решай по 3–4 задачи в день</span>
+                        </div>
+                        <p class="step-text">
+                            Ежедневно заходи на Codeforces и решай по 3–4 задачи своего текущего уровня. Регулярность — главный секрет роста рейтинга.
+                        </p>
+                        <a href="https://codeforces.com/problemset" target="_blank" class="step-action-btn btn-cf">
+                            🎯 Перейти на Codeforces →
+                        </a>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="step-card">
+                        <span class="step-number">Шаг 3 • Прокачка</span>
+                        <div class="step-heading">
+                            <span>🌳</span>
+                            <span>Учи темы по рейтингу</span>
+                        </div>
+                        <p class="step-text">
+                            Когда твой рейтинг на CF достигает нужной отметки (например, 1000+ или 1200+), открывай соответствующий узел в дереве и учи теорию на USACO Guide!
+                        </p>
+                        <button class="step-action-btn btn-tree-jump" onclick="scrollToTree()">
+                            🗺️ Открыть дерево навыков ↓
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FILTERS & SEARCH -->
+            <div class="tree-header-controls" id="tree-section">
+                <div class="filter-tabs">
+                    <button class="filter-btn active" data-filter="all">🌐 Все темы (34)</button>
+                    <button class="filter-btn" data-filter="easy">🟢 Онай (8)</button>
+                    <button class="filter-btn" data-filter="medium">🟡 Средни (12)</button>
+                    <button class="filter-btn" data-filter="hard">🔴 Киын (14)</button>
+                    <button class="filter-btn" data-filter="completed">✅ Изученные</button>
+                </div>
+
+                <div class="search-box">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" id="topic-search" class="search-input" placeholder="Поиск темы (например, 'Бинпоиск')...">
+                </div>
+            </div>
+
+            <!-- INTERACTIVE TREE CANVAS -->
+            <div class="tree-view-wrapper">
+                <div class="tree-toolbar">
+                    <button class="tool-btn" id="zoom-in" title="Приблизить">+</button>
+                    <button class="tool-btn" id="zoom-out" title="Отдалить">−</button>
+                    <button class="tool-btn" id="zoom-reset" title="Сбросить масштаб">⟲</button>
+                </div>
+
+                <div class="tree-viewport" id="tree-viewport">
+                    <div class="tree-canvas" id="tree-canvas">
+                        <!-- Background Tier Zones -->
+                        <div class="tier-zone tier-zone-start" style="left: 450px; top: 20px; width: 300px; height: 110px;">
+                            <span class="tier-zone-label" style="color:#a78bfa">🎓 Старт (Stepik)</span>
+                        </div>
+
+                        <div class="tier-zone tier-zone-easy" style="left: 60px; top: 160px; width: 1150px; height: 260px;">
+                            <span class="tier-zone-label" style="color:#34d399">🟢 Онай (CF 800 - 1100)</span>
+                        </div>
+
+                        <div class="tier-zone tier-zone-med" style="left: 60px; top: 450px; width: 1150px; height: 300px;">
+                            <span class="tier-zone-label" style="color:#fbbf24">🟡 Средни (CF 1200 - 1500)</span>
+                        </div>
+
+                        <div class="tier-zone tier-zone-hard" style="left: 60px; top: 780px; width: 1150px; height: 360px;">
+                            <span class="tier-zone-label" style="color:#f87171">🔴 Киын (CF 1500 - 1800+)</span>
+                        </div>
+
+                        <svg id="tree-svg"></svg>
+                        <div id="nodes-container"></div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </section>
 
     <!-- FOOTER -->
     <footer class="footer">
         <div class="container">
-            <p>Сделано с ❤️ для будущих чемпионов</p>
-            <p><a href="https://github.com/partbomb/prepioi" target="_blank">GitHub</a> · MIT License · 2026</p>
+            <p style="margin-bottom: 0.5rem;">
+                <strong>CP-Roadmap</strong> — Интерактивный навигатор по алгоритмам и структурам данных
+            </p>
+            <p>
+                Материалы синхронизированы с <a href="https://usaco.guide/" target="_blank">USACO Guide</a> и 
+                <a href="https://codeforces.com/" target="_blank">Codeforces</a> · 2026
+            </p>
         </div>
     </footer>
 
-    <!-- LESSON MODAL -->
-    <div id="lesson-modal" class="modal hidden">
+    <!-- MODAL DRAWER -->
+    <div class="modal" id="topic-modal">
         <div class="modal-overlay" id="modal-overlay"></div>
-        <div class="modal-panel">
-            <button class="modal-close" id="close-modal">✕</button>
-            <div class="modal-top">
-                <div class="modal-icon-box"><span id="modal-icon"></span></div>
-                <div class="modal-info">
-                    <h2 id="modal-title">Тема</h2>
-                    <span class="platform-tag" id="modal-platform">Platform</span>
+        <div class="modal-card">
+            <div class="modal-header">
+                <div class="modal-header-left">
+                    <div class="modal-icon-big" id="modal-icon">📚</div>
+                    <div class="modal-title-box">
+                        <h3 id="modal-title">Название темы</h3>
+                        <div class="modal-badges">
+                            <span class="tier-badge" id="modal-tier-badge">Уровень</span>
+                            <span class="cf-badge" id="modal-cf-badge">CF 1000+</span>
+                            <span class="cf-badge" id="modal-time-badge" style="color:#a78bfa;">O(1)</span>
+                        </div>
+                    </div>
+                </div>
+                <button class="modal-close-btn" id="modal-close-btn">✕</button>
+            </div>
+
+            <div class="modal-body">
+                <!-- USACO Banner -->
+                <div class="usaco-banner">
+                    <div class="usaco-banner-text">
+                        <span class="usaco-title" id="modal-usaco-name">USACO Guide модуль</span>
+                        <span class="usaco-sub">Официальная теория, разборы и олимпиадные задачи</span>
+                    </div>
+                    <a href="#" target="_blank" class="btn-usaco-action" id="modal-usaco-btn">
+                        📖 Изучить на USACO →
+                    </a>
+                </div>
+
+                <!-- Theory summary -->
+                <div class="info-block">
+                    <div class="info-block-title">
+                        <span>💡</span>
+                        <span>Суть темы и идея алгоритма</span>
+                    </div>
+                    <p class="info-block-text" id="modal-summary">Описание алгоритма...</p>
+                    <ul class="key-points-list" id="modal-keypoints"></ul>
+                </div>
+
+                <!-- Prerequisites -->
+                <div class="info-block">
+                    <div class="info-block-title">
+                        <span>⛓️</span>
+                        <span>Что нужно знать перед этой темой</span>
+                    </div>
+                    <div class="prereq-tags" id="modal-prereqs"></div>
+                </div>
+
+                <!-- Practice tasks -->
+                <div class="info-block">
+                    <div class="info-block-title">
+                        <span>⚔️</span>
+                        <span>Рекомендуемые задачи для практики</span>
+                    </div>
+                    <div class="practice-list" id="modal-practice"></div>
                 </div>
             </div>
-            <div class="modal-body">
-                <div class="theory">
-                    <h3 id="theory-title">Теория</h3>
-                    <div id="theory-explanation" class="theory-text"></div>
-                    <h4 class="key-points-title">Ключевые моменты</h4>
-                    <ul id="key-points-list" class="key-points"></ul>
-                    <div class="code-block">
-                        <div class="code-block-header">
-                            <span class="dot dot-r"></span>
-                            <span class="dot dot-y"></span>
-                            <span class="dot dot-g"></span>
-                            <span style="margin-left:0.5rem">main.cpp</span>
-                        </div>
-                        <pre><code id="code-template"></code></pre>
-                    </div>
-                </div>
-                <div class="tasks-panel">
-                    <h3>Задачи</h3>
-                    <div class="progress-wrap">
-                        <div class="progress-info">
-                            <span id="task-progress-label">Прогресс</span>
-                            <span id="task-progress-text">0 / 0</span>
-                        </div>
-                        <div class="progress-track"><div class="progress-fill" id="task-progress-bar"></div></div>
-                    </div>
-                    <div id="tasks-list" class="task-list"></div>
-                </div>
+
+            <div class="modal-footer">
+                <span style="font-size: 0.85rem; color: var(--text-secondary);" id="modal-xp-reward">
+                    Награда: +120 XP
+                </span>
+                <button class="btn-toggle-learned" id="modal-toggle-learned">
+                    <span>✓</span>
+                    <span id="modal-toggle-learned-text">Отметить как изученное</span>
+                </button>
             </div>
         </div>
     </div>
 
+    <!-- SCRIPT -->
     <script>
+    // Embedded topic data as robust fallback + dynamic loader
+    let skillTreeData = null;
+    let completedTopics = JSON.parse(localStorage.getItem('prepioi_completed') || '[]');
+    let currentFilter = 'all';
+    let currentSearch = '';
+    let zoomLevel = 1;
+    let currentActiveNode = null;
+
     document.addEventListener('DOMContentLoaded', async () => {
-        // --- Elements ---
-        const btnStart = document.getElementById('btn-start');
-        const treeSection = document.getElementById('skill-tree-section');
-        const nodesContainer = document.getElementById('nodes-container');
-        const treeSvg = document.getElementById('tree-svg');
-        const modal = document.getElementById('lesson-modal');
-        const modalOverlay = document.getElementById('modal-overlay');
-        const closeModalBtn = document.getElementById('close-modal');
-        const navbar = document.getElementById('navbar');
-
-        // --- State ---
-        let skillTreeData = null;
-        let progress = loadProgress();
-
-        // --- Init ---
-        init();
-
-        async function init() {
-            // Navbar scroll effect
-            window.addEventListener('scroll', () => {
-                navbar.classList.toggle('scrolled', window.scrollY > 50);
-            });
-
-            btnStart.addEventListener('click', () => {
-                treeSection.scrollIntoView({ behavior: 'smooth' });
-            });
-
-            closeModalBtn.addEventListener('click', closeModal);
-            modalOverlay.addEventListener('click', closeModal);
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape') closeModal();
-            });
-
-            try {
-                const treeResp = await fetch('./skill_tree.json');
-                skillTreeData = await treeResp.json();
-                updatePlayerUI();
-                renderTree();
-
-                const contestResp = await fetch('./contests/starting_contest.json');
-                const contestData = await contestResp.json();
-                renderContest(contestData);
-            } catch (err) {
-                console.error("Error loading data:", err);
+        try {
+            const res = await fetch('./skill_tree.json');
+            if (res.ok) {
+                skillTreeData = await res.json();
             }
+        } catch (e) {
+            console.warn('Fetched skill_tree.json failed, falling back', e);
         }
 
-        // --- Progress ---
-        function loadProgress() {
-            const saved = localStorage.getItem('cp_roadmap_progress');
-            if (saved) return JSON.parse(saved);
-            return { completedTasks: [], completedNodes: [], currentXP: 0, levelId: 1 };
+        if (!skillTreeData || !skillTreeData.nodes) {
+            // Self-contained fallback ensures page NEVER breaks
+            skillTreeData = getEmbeddedData();
         }
 
-        function saveProgress() {
-            localStorage.setItem('cp_roadmap_progress', JSON.stringify(progress));
-            updatePlayerUI();
-            updateNodeStates();
-        }
-
-        function updatePlayerUI() {
-            if (!skillTreeData) return;
-
-            let currentLevel = skillTreeData.levels[0];
-            let nextLevel = skillTreeData.levels[1];
-
-            for (let i = 0; i < skillTreeData.levels.length; i++) {
-                if (progress.currentXP >= skillTreeData.levels[i].xpRequired) {
-                    currentLevel = skillTreeData.levels[i];
-                    nextLevel = skillTreeData.levels[i + 1] || currentLevel;
-                }
-            }
-            progress.levelId = currentLevel.id;
-
-            // Navbar
-            document.getElementById('nav-level-icon').textContent = currentLevel.icon;
-            const navName = document.getElementById('nav-level-name');
-            navName.textContent = currentLevel.name;
-            navName.style.color = currentLevel.color;
-
-            if (currentLevel.id === nextLevel.id) {
-                document.getElementById('nav-xp-text').textContent = `${progress.currentXP} XP (MAX)`;
-                document.getElementById('nav-xp-fill').style.width = '100%';
-            } else {
-                const xpIn = progress.currentXP - currentLevel.xpRequired;
-                const xpNeeded = nextLevel.xpRequired - currentLevel.xpRequired;
-                const pct = Math.min(100, Math.max(0, (xpIn / xpNeeded) * 100));
-                document.getElementById('nav-xp-text').textContent = `${progress.currentXP} / ${nextLevel.xpRequired} XP`;
-                document.getElementById('nav-xp-fill').style.width = `${pct}%`;
-            }
-        }
-
-        // --- Tree ---
-        function renderTree() {
-            nodesContainer.innerHTML = '';
-            treeSvg.innerHTML = '';
-
-            // Create SVG defs for gradient
-            const defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
-            const gradient = document.createElementNS('http://www.w3.org/2000/svg', 'linearGradient');
-            gradient.setAttribute('id', 'edge-gradient');
-            gradient.setAttribute('gradientUnits', 'userSpaceOnUse');
-            const stop1 = document.createElementNS('http://www.w3.org/2000/svg', 'stop');
-            stop1.setAttribute('offset', '0%');
-            stop1.setAttribute('stop-color', '#10b981');
-            const stop2 = document.createElementNS('http://www.w3.org/2000/svg', 'stop');
-            stop2.setAttribute('offset', '100%');
-            stop2.setAttribute('stop-color', '#06b6d4');
-            gradient.appendChild(stop1);
-            gradient.appendChild(stop2);
-            defs.appendChild(gradient);
-            treeSvg.appendChild(defs);
-
-            skillTreeData.nodes.forEach(node => {
-                // Node element
-                const el = document.createElement('div');
-                el.className = 'node';
-                el.id = `node-${node.id}`;
-                el.style.left = `${node.position.x}px`;
-                el.style.top = `${node.position.y}px`;
-                el.innerHTML = `
-                    <div class="node-icon">${node.icon}</div>
-                    <div class="node-name">${node.name}</div>
-                    <div class="node-platform">${node.platform}</div>
-                `;
-                el.addEventListener('click', () => handleNodeClick(node));
-                nodesContainer.appendChild(el);
-
-                // Edges
-                node.requires.forEach(reqId => {
-                    const reqNode = skillTreeData.nodes.find(n => n.id === reqId);
-                    if (!reqNode) return;
-
-                    const line = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-                    const sx = reqNode.position.x, sy = reqNode.position.y + 45;
-                    const ex = node.position.x, ey = node.position.y - 45;
-                    const cy1 = sy + (ey - sy) * 0.4;
-                    const cy2 = sy + (ey - sy) * 0.6;
-                    line.setAttribute('d', `M ${sx} ${sy} C ${sx} ${cy1}, ${ex} ${cy2}, ${ex} ${ey}`);
-                    line.setAttribute('stroke-width', '2');
-                    line.setAttribute('fill', 'none');
-                    line.setAttribute('stroke-linecap', 'round');
-                    line.setAttribute('class', `edge from-${reqId} to-${node.id}`);
-                    treeSvg.appendChild(line);
-                });
-            });
-
-            updateNodeStates();
-        }
-
-        function updateNodeStates() {
-            if (!skillTreeData) return;
-
-            skillTreeData.nodes.forEach(node => {
-                const el = document.getElementById(`node-${node.id}`);
-                if (!el) return;
-                el.classList.remove('locked', 'available', 'in-progress', 'completed', 'mastered');
-
-                const prereqsMet = node.requires.every(r => isNodeCompleted(r));
-
-                if (!prereqsMet && node.requires.length > 0) {
-                    el.classList.add('locked');
-                } else if (isNodeCompleted(node.id)) {
-                    el.classList.add('completed');
-                } else {
-                    el.classList.add('available');
-                }
-            });
-
-            // Update edges
-            skillTreeData.nodes.forEach(node => {
-                node.requires.forEach(reqId => {
-                    const line = document.querySelector(`.edge.from-${reqId}.to-${node.id}`);
-                    if (!line) return;
-                    if (isNodeCompleted(reqId)) {
-                        line.setAttribute('stroke', 'url(#edge-gradient)');
-                        line.setAttribute('stroke-opacity', '0.8');
-                        line.classList.add('active');
-                    } else {
-                        line.setAttribute('stroke', 'rgba(148,163,184,0.12)');
-                        line.setAttribute('stroke-opacity', '1');
-                        line.classList.remove('active');
-                    }
-                });
-            });
-        }
-
-        function isNodeCompleted(nodeId) {
-            if (!progress.completedNodes) progress.completedNodes = [];
-            return progress.completedNodes.includes(nodeId);
-        }
-
-        // --- Modal ---
-        async function handleNodeClick(node) {
-            const el = document.getElementById(`node-${node.id}`);
-            if (el.classList.contains('locked')) {
-                // Show tooltip instead of alert
-                el.style.animation = 'shake 0.4s ease';
-                setTimeout(() => el.style.animation = '', 400);
-                return;
-            }
-
-            try {
-                const resp = await fetch(`./${node.topicFile}`);
-                if (!resp.ok) throw new Error("Not found");
-                const topicData = await resp.json();
-                openModal(node, topicData);
-            } catch (e) {
-                console.error(e);
-                // Minimal fallback
-                alert('Этот модуль ещё в разработке 🚧');
-            }
-        }
-
-        function openModal(node, data) {
-            document.getElementById('modal-icon').textContent = data.icon || node.icon;
-            document.getElementById('modal-title').textContent = data.name;
-            document.getElementById('modal-platform').textContent = data.platform;
-
-            // Theory
-            if (data.theory) {
-                document.getElementById('theory-title').textContent = data.theory.title;
-
-                // Parse text
-                let html = data.theory.explanation
-                    .replace(/\n\n/g, '</p><p>')
-                    .replace(/\n/g, '<br>')
-                    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-                    .replace(/`(.*?)`/g, '<code style="background:rgba(6,182,212,0.1);padding:0.1rem 0.3rem;border-radius:3px;font-family:var(--font-mono);font-size:0.85em;color:var(--accent-cyan)">$1</code>');
-                document.getElementById('theory-explanation').innerHTML = `<p>${html}</p>`;
-
-                // Key points
-                const ul = document.getElementById('key-points-list');
-                ul.innerHTML = '';
-                data.theory.keyPoints.forEach(kp => {
-                    const li = document.createElement('li');
-                    li.textContent = kp;
-                    ul.appendChild(li);
-                });
-
-                // Code with syntax highlighting
-                const codeEl = document.getElementById('code-template');
-                let code = data.theory.codeTemplate;
-                code = code.replace(/</g, '&lt;').replace(/>/g, '&gt;');
-                // Comments
-                code = code.replace(/(\/\/.*)/g, '<span class="cmt">$1</span>');
-                // Preprocessor
-                code = code.replace(/#(include)/g, '<span class="kw">#$1</span>');
-                // Keywords
-                code = code.replace(/\b(using|namespace|int|return|for|while|if|else|void|bool|double|float|long|char|string|cin|cout|endl)\b/g, '<span class="kw">$1</span>');
-                // Strings
-                code = code.replace(/"(.*?)"/g, '<span class="str">"$1"</span>');
-                // Numbers
-                code = code.replace(/\b(\d+)\b/g, '<span class="num">$1</span>');
-                codeEl.innerHTML = code;
-            }
-
-            // Tasks
-            const tasksList = document.getElementById('tasks-list');
-            tasksList.innerHTML = '';
-
-            let completedCount = 0;
-            const requiredCount = data.tasksToComplete || data.tasks.filter(t => t.required).length || data.tasks.length;
-
-            data.tasks.forEach(task => {
-                const isDone = progress.completedTasks.includes(task.id);
-                if (isDone && task.required) completedCount++;
-
-                const tEl = document.createElement('div');
-                tEl.className = 'task-item';
-                tEl.innerHTML = `
-                    <div class="task-item-top">
-                        <input type="checkbox" class="task-cb" data-task-id="${task.id}" ${isDone ? 'checked' : ''}>
-                        <label class="task-label">${task.name} ${task.required ? '<span class="task-required">обяз.</span>' : '<span class="task-bonus">бонус</span>'}</label>
-                    </div>
-                    <div class="task-actions">
-                        <a href="${task.url}" target="_blank" class="btn-sm btn-solve">Решать →</a>
-                        ${task.hint ? `<button class="btn-sm btn-hint-toggle" data-hint-id="${task.id}">💡 Подсказка</button>` : ''}
-                    </div>
-                    ${task.hint ? `<div class="hint-content" id="hint-${task.id}">${task.hint}</div>` : ''}
-                `;
-                tasksList.appendChild(tEl);
-            });
-
-            updateTaskProgress(completedCount, requiredCount, node, data);
-
-            // Bind checkbox events
-            tasksList.querySelectorAll('.task-cb').forEach(cb => {
-                cb.addEventListener('change', (e) => {
-                    const tId = e.target.getAttribute('data-task-id');
-                    const tData = data.tasks.find(t => t.id === tId);
-
-                    if (e.target.checked) {
-                        if (!progress.completedTasks.includes(tId)) {
-                            progress.completedTasks.push(tId);
-                            progress.currentXP += (tData.required ? 50 : 20);
-                        }
-                    } else {
-                        progress.completedTasks = progress.completedTasks.filter(id => id !== tId);
-                        progress.currentXP = Math.max(0, progress.currentXP - (tData.required ? 50 : 20));
-                    }
-
-                    completedCount = data.tasks.filter(t => t.required && progress.completedTasks.includes(t.id)).length;
-                    updateTaskProgress(completedCount, requiredCount, node, data);
-                    saveProgress();
-                });
-            });
-
-            // Bind hint toggles
-            tasksList.querySelectorAll('.btn-hint-toggle').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const hId = btn.getAttribute('data-hint-id');
-                    const hEl = document.getElementById(`hint-${hId}`);
-                    hEl.classList.toggle('visible');
-                    btn.textContent = hEl.classList.contains('visible') ? '🙈 Скрыть' : '💡 Подсказка';
-                });
-            });
-
-            modal.classList.remove('hidden');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function updateTaskProgress(completed, required, node, data) {
-            const pBar = document.getElementById('task-progress-bar');
-            const pText = document.getElementById('task-progress-text');
-            const pct = Math.min(100, (completed / required) * 100);
-
-            pBar.style.width = `${pct}%`;
-            pText.textContent = `${completed} / ${required}`;
-
-            if (completed >= required) {
-                pBar.classList.add('done');
-                if (!progress.completedNodes.includes(node.id)) {
-                    progress.completedNodes.push(node.id);
-                    progress.currentXP += node.xpReward;
-                    saveProgress();
-                }
-            } else {
-                pBar.classList.remove('done');
-                if (progress.completedNodes.includes(node.id)) {
-                    progress.completedNodes = progress.completedNodes.filter(id => id !== node.id);
-                    progress.currentXP = Math.max(0, progress.currentXP - node.xpReward);
-                    saveProgress();
-                }
-            }
-        }
-
-        function closeModal() {
-            modal.classList.add('hidden');
-            document.body.style.overflow = '';
-        }
-
-        // --- Contest ---
-        function renderContest(data) {
-            document.getElementById('diagnostic-desc').textContent = data.description;
-            const grid = document.getElementById('contest-grid');
-            grid.innerHTML = '';
-
-            data.tasks.forEach(task => {
-                let ratingClass = 'r800';
-                if (task.rating >= 900) ratingClass = 'r900';
-                if (task.rating >= 1000) ratingClass = 'r1000';
-                if (task.rating >= 1100) ratingClass = 'r1100';
-                if (task.rating >= 1200) ratingClass = 'r1200';
-                if (task.rating >= 1500) ratingClass = 'r1500';
-
-                const card = document.createElement('div');
-                card.className = 'contest-card';
-                card.innerHTML = `
-                    <div class="contest-card-top">
-                        <span class="contest-card-index">#${task.index}</span>
-                        <span class="rating-badge ${ratingClass}">★ ${task.rating}</span>
-                    </div>
-                    <h3>${task.name}</h3>
-                    <div class="contest-card-topic">${task.topic}</div>
-                    <p class="contest-card-desc">${task.description}</p>
-                    <a href="${task.url}" target="_blank" class="contest-card-link">Решать на Codeforces →</a>
-                `;
-                grid.appendChild(card);
-            });
-        }
+        initUI();
+        renderTree();
+        setupPanZoom();
+        updatePlayerStats();
     });
+
+    function scrollToTree() {
+        const el = document.getElementById('tree-section');
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function initUI() {
+        // Filter buttons
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentFilter = btn.dataset.filter;
+                applyFilterAndSearch();
+            });
+        });
+
+        // Search input
+        const searchInput = document.getElementById('topic-search');
+        if (searchInput) {
+            searchInput.addEventListener('input', (e) => {
+                currentSearch = e.target.value.toLowerCase().trim();
+                applyFilterAndSearch();
+            });
+        }
+
+        // Modal close
+        document.getElementById('modal-close-btn').addEventListener('click', closeModal);
+        document.getElementById('modal-overlay').addEventListener('click', closeModal);
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
+        });
+
+        // Learned toggle
+        document.getElementById('modal-toggle-learned').addEventListener('click', () => {
+            if (!currentActiveNode) return;
+            const id = currentActiveNode.id;
+            const idx = completedTopics.indexOf(id);
+            if (idx >= 0) {
+                completedTopics.splice(idx, 1);
+            } else {
+                completedTopics.push(id);
+            }
+            localStorage.setItem('prepioi_completed', JSON.stringify(completedTopics));
+            updatePlayerStats();
+            updateNodeVisuals();
+            updateModalLearnedState(currentActiveNode);
+        });
+    }
+
+    function updatePlayerStats() {
+        if (!skillTreeData) return;
+        const total = skillTreeData.nodes.length;
+        const count = completedTopics.length;
+
+        // Calculate total XP
+        let currentXP = 0;
+        skillTreeData.nodes.forEach(n => {
+            if (completedTopics.includes(n.id)) {
+                currentXP += (n.xpReward || 100);
+            }
+        });
+
+        // Find Level
+        let lvl = skillTreeData.levels[0];
+        skillTreeData.levels.forEach(l => {
+            if (currentXP >= l.xpRequired) {
+                lvl = l;
+            }
+        });
+
+        document.getElementById('player-level-icon').textContent = lvl.icon;
+        document.getElementById('player-level-name').textContent = lvl.name;
+        document.getElementById('player-level-badge').style.borderColor = lvl.color;
+        document.getElementById('player-xp-label').textContent = `${currentXP} XP`;
+        document.getElementById('player-topics-count').textContent = `${count} / ${total} тем`;
+
+        const maxXP = skillTreeData.levels[skillTreeData.levels.length - 1].xpRequired;
+        const pct = Math.min(100, Math.round((currentXP / maxXP) * 100));
+        document.getElementById('player-xp-fill').style.width = `${pct}%`;
+    }
+
+    function renderTree() {
+        const container = document.getElementById('nodes-container');
+        const svg = document.getElementById('tree-svg');
+        container.innerHTML = '';
+        svg.innerHTML = '';
+
+        // Draw Nodes
+        skillTreeData.nodes.forEach(node => {
+            const card = document.createElement('div');
+            card.className = `node-card tier-${node.tier}`;
+            card.id = `node-${node.id}`;
+            card.style.left = `${node.position.x}px`;
+            card.style.top = `${node.position.y}px`;
+
+            card.innerHTML = `
+                <div class="node-icon">${node.icon}</div>
+                <div class="node-title">${node.name}</div>
+                <div class="node-meta">
+                    <span class="cf-badge">${node.cfRating}</span>
+                    <span class="tier-badge ${node.tier}">${node.tierName}</span>
+                </div>
+            `;
+
+            card.addEventListener('click', () => openModal(node));
+            container.appendChild(card);
+        });
+
+        // Draw Edges
+        skillTreeData.nodes.forEach(node => {
+            if (!node.requires || node.requires.length === 0) return;
+
+            node.requires.forEach(reqId => {
+                const parent = skillTreeData.nodes.find(n => n.id === reqId);
+                if (!parent) return;
+
+                const sx = parent.position.x + 75;
+                const sy = parent.position.y + 70;
+                const ex = node.position.x + 75;
+                const ey = node.position.y;
+
+                const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                const cy1 = sy + (ey - sy) * 0.45;
+                const cy2 = sy + (ey - sy) * 0.55;
+                path.setAttribute('d', `M ${sx} ${sy} C ${sx} ${cy1}, ${ex} ${cy2}, ${ex} ${ey}`);
+                path.setAttribute('class', `edge edge-${reqId}-${node.id}`);
+                svg.appendChild(path);
+            });
+        });
+
+        updateNodeVisuals();
+    }
+
+    function updateNodeVisuals() {
+        skillTreeData.nodes.forEach(node => {
+            const el = document.getElementById(`node-${node.id}`);
+            if (!el) return;
+
+            const isCompleted = completedTopics.includes(node.id);
+            const prereqsMet = (node.requires || []).every(req => completedTopics.includes(req));
+
+            el.classList.toggle('completed', isCompleted);
+            el.classList.toggle('locked', !prereqsMet && (node.requires || []).length > 0 && !isCompleted);
+
+            // Update edge styles
+            (node.requires || []).forEach(reqId => {
+                const edge = document.querySelector(`.edge-${reqId}-${node.id}`);
+                if (edge) {
+                    edge.classList.toggle('active', completedTopics.includes(reqId));
+                }
+            });
+        });
+    }
+
+    function applyFilterAndSearch() {
+        skillTreeData.nodes.forEach(node => {
+            const el = document.getElementById(`node-${node.id}`);
+            if (!el) return;
+
+            const isCompleted = completedTopics.includes(node.id);
+            let matchesFilter = true;
+            if (currentFilter === 'easy') matchesFilter = (node.tier === 'easy');
+            else if (currentFilter === 'medium') matchesFilter = (node.tier === 'medium');
+            else if (currentFilter === 'hard') matchesFilter = (node.tier === 'hard');
+            else if (currentFilter === 'completed') matchesFilter = isCompleted;
+
+            let matchesSearch = true;
+            if (currentSearch) {
+                const searchStr = `${node.name} ${node.cfRating} ${node.summary}`.toLowerCase();
+                matchesSearch = searchStr.includes(currentSearch);
+            }
+
+            if (matchesFilter && matchesSearch) {
+                el.style.display = 'flex';
+                el.style.opacity = el.classList.contains('locked') ? '0.55' : '1';
+            } else {
+                el.style.display = 'none';
+            }
+        });
+    }
+
+    function openModal(node) {
+        currentActiveNode = node;
+        document.getElementById('modal-icon').textContent = node.icon;
+        document.getElementById('modal-title').textContent = node.name;
+
+        const tierBadge = document.getElementById('modal-tier-badge');
+        tierBadge.textContent = node.tierName;
+        tierBadge.className = `tier-badge ${node.tier}`;
+
+        document.getElementById('modal-cf-badge').textContent = `🎯 ${node.cfRating}`;
+        document.getElementById('modal-time-badge').textContent = `⏱️ ${node.timeComplexity || 'O(1)'}`;
+
+        // USACO Banner
+        document.getElementById('modal-usaco-name').textContent = `USACO: ${node.usacoName || node.name}`;
+        const usacoBtn = document.getElementById('modal-usaco-btn');
+        usacoBtn.href = node.usacoUrl;
+
+        // Theory & keypoints
+        document.getElementById('modal-summary').textContent = node.summary;
+        const kpList = document.getElementById('modal-keypoints');
+        kpList.innerHTML = '';
+        (node.keyPoints || []).forEach(kp => {
+            const li = document.createElement('li');
+            li.textContent = kp;
+            kpList.appendChild(li);
+        });
+
+        // Prerequisites
+        const prereqBox = document.getElementById('modal-prereqs');
+        prereqBox.innerHTML = '';
+        if (!node.requires || node.requires.length === 0) {
+            prereqBox.innerHTML = '<span style="font-size:0.85rem;color:var(--text-muted)">Нет пререквизитов (стартовая тема)</span>';
+        } else {
+            node.requires.forEach(reqId => {
+                const reqNode = skillTreeData.nodes.find(n => n.id === reqId);
+                if (reqNode) {
+                    const tag = document.createElement('span');
+                    tag.className = 'prereq-tag';
+                    const isLearned = completedTopics.includes(reqId);
+                    tag.innerHTML = `${reqNode.icon} ${reqNode.name} ${isLearned ? '✓' : ''}`;
+                    tag.addEventListener('click', () => openModal(reqNode));
+                    prereqBox.appendChild(tag);
+                }
+            });
+        }
+
+        // Practice tasks
+        const practiceBox = document.getElementById('modal-practice');
+        practiceBox.innerHTML = '';
+        (node.practice || []).forEach(p => {
+            const a = document.createElement('a');
+            a.className = 'practice-item';
+            a.href = p.url;
+            a.target = '_blank';
+            a.innerHTML = `<span>⚡ ${p.name}</span><span style="font-size:0.75rem;color:var(--accent-cyan);">${p.platform} ↗</span>`;
+            practiceBox.appendChild(a);
+        });
+
+        document.getElementById('modal-xp-reward').textContent = `Награда: +${node.xpReward || 100} XP`;
+        updateModalLearnedState(node);
+
+        document.getElementById('topic-modal').classList.add('active');
+    }
+
+    function updateModalLearnedState(node) {
+        const btn = document.getElementById('modal-toggle-learned');
+        const isDone = completedTopics.includes(node.id);
+        btn.classList.toggle('is-completed', isDone);
+        document.getElementById('modal-toggle-learned-text').textContent = isDone ? 'Изучено ✓' : 'Отметить как изученное';
+    }
+
+    function closeModal() {
+        document.getElementById('topic-modal').classList.remove('active');
+        currentActiveNode = null;
+    }
+
+    // Pan & Zoom
+    function setupPanZoom() {
+        const viewport = document.getElementById('tree-viewport');
+        const canvas = document.getElementById('tree-canvas');
+
+        document.getElementById('zoom-in').addEventListener('click', () => {
+            zoomLevel = Math.min(1.5, zoomLevel + 0.15);
+            applyZoom();
+        });
+        document.getElementById('zoom-out').addEventListener('click', () => {
+            zoomLevel = Math.max(0.65, zoomLevel - 0.15);
+            applyZoom();
+        });
+        document.getElementById('zoom-reset').addEventListener('click', () => {
+            zoomLevel = 1;
+            applyZoom();
+            viewport.scrollTo({ left: 100, top: 0, behavior: 'smooth' });
+        });
+
+        function applyZoom() {
+            canvas.style.transform = `scale(${zoomLevel})`;
+        }
+
+        // Center on start
+        viewport.scrollLeft = 80;
+    }
+
+    function getEmbeddedData() {
+        return {"version": "3.0", "title": "CP-Roadmap — Интерактивное дерево навыков", "description": "34 олимпиадные темы по спортивному программированию от Онай до Киын", "levels": [{"id": 1, "name": "Новичок", "xpRequired": 0, "icon": "🥚", "color": "#9CA3AF", "targetCf": "0-800"}, {"id": 2, "name": "Ученик", "xpRequired": 400, "icon": "🐣", "color": "#10B981", "targetCf": "800-1100"}, {"id": 3, "name": "Специалист", "xpRequired": 1200, "icon": "⚔️", "color": "#3B82F6", "targetCf": "1100-1400"}, {"id": 4, "name": "Эксперт", "xpRequired": 2400, "icon": "⚡", "color": "#F59E0B", "targetCf": "1400-1600"}, {"id": 5, "name": "Кандидат в Мастера", "xpRequired": 3800, "icon": "🏆", "color": "#EC4899", "targetCf": "1600-1800"}, {"id": 6, "name": "Гроссмейстер", "xpRequired": 5000, "icon": "👑", "color": "#EF4444", "targetCf": "1800+"}], "nodes": [{"id": "stepik", "name": "Stepik: Основы C++", "tier": "start", "tierName": "База", "icon": "🎓", "cfRating": "0+", "usacoUrl": "https://stepik.org/course/363/promo", "usacoName": "Stepik C++ Course", "requires": [], "position": {"x": 600, "y": 60}, "xpReward": 100, "timeComplexity": "O(1)", "summary": "Базовый синтаксис языка: переменные, ветвления if/else, циклы while/for, массивы, функции и ввод-вывод.", "keyPoints": ["Типы данных: int, long long, double, char, string, bool", "Быстрый ввод/вывод: cin.tie(0)->sync_with_stdio(0)", "Массивы и vector: создание, индексация с 0", "Функции и передача по ссылке (&)"], "practice": [{"name": "Курс Stepik (бесплатно)", "url": "https://stepik.org/course/363/promo", "platform": "Stepik"}, {"name": "CF 4A - Watermelon", "url": "https://codeforces.com/problemset/problem/4/A", "platform": "Codeforces"}, {"name": "CF 71A - Way Too Long Words", "url": "https://codeforces.com/problemset/problem/71/A", "platform": "Codeforces"}]}, {"id": "stl_sort", "name": "Встроенная сортировка (STL)", "tier": "easy", "tierName": "Онай", "icon": "📶", "cfRating": "800+", "usacoUrl": "https://usaco.guide/silver/sorting-custom", "usacoName": "Custom Comparators and Sorting", "requires": ["stepik"], "position": {"x": 300, "y": 200}, "xpReward": 120, "timeComplexity": "O(N log N)", "summary": "std::sort из библиотеки <algorithm>. Сортировка массивов, векторов, пар и структур с собственными компараторами.", "keyPoints": ["std::sort(v.begin(), v.end()) работает за O(N log N)", "Сортировка по убыванию: greater<int>()", "Пользовательские компараторы и лямбда-функции", "Сортировка пар: сначала по first, затем по second"], "practice": [{"name": "CF 141A - Amusing Joke", "url": "https://codeforces.com/problemset/problem/141/A", "platform": "Codeforces"}, {"name": "CF 160A - Twins", "url": "https://codeforces.com/problemset/problem/160/A", "platform": "Codeforces"}]}, {"id": "brute_force", "name": "Полный перебор (Brute force)", "tier": "easy", "tierName": "Онай", "icon": "🔄", "cfRating": "800+", "usacoUrl": "https://usaco.guide/bronze/complete-search", "usacoName": "Complete Search", "requires": ["stepik"], "position": {"x": 500, "y": 200}, "xpReward": 120, "timeComplexity": "O(2^N) / O(N!)", "summary": "Генерация всех возможных состояний: перебор всех подмножеств, бинарные строки длины N, перестановки, рекурсивный бэктрекинг.", "keyPoints": ["Генерация бинарных строк длины N рекурсией или масками", "next_permutation для генерации перестановок за O(N!)", "Бэктрекинг: отсечение заведомо неоптимальных ветвей", "Оценка: 2^20 ≈ 10^6 операций, 10! ≈ 3.6 * 10^6"], "practice": [{"name": "CSES - Creating Strings", "url": "https://cses.fi/problemset/task/1622", "platform": "CSES"}, {"name": "CSES - Apple Division", "url": "https://cses.fi/problemset/task/1623", "platform": "CSES"}]}, {"id": "freq_arrays", "name": "Частотные массивы", "tier": "easy", "tierName": "Онай", "icon": "📊", "cfRating": "800+", "usacoUrl": "https://usaco.guide/silver/frequency-arrays", "usacoName": "Frequency Arrays", "requires": ["stepik"], "position": {"x": 700, "y": 200}, "xpReward": 120, "timeComplexity": "O(N)", "summary": "Подсчет частоты элементов за один проход с помощью массива cnt[x] или hash-таблицы std::map / unordered_map.", "keyPoints": ["Подсчет символов строки: cnt[s[i] - 'a']++", "Анаграммы и проверка перестановок", "Поиск моды (наиболее частого элемента)", "Сортировка подсчетом (Counting Sort) за O(N + MaxVal)"], "practice": [{"name": "CF 43A - Football", "url": "https://codeforces.com/problemset/problem/43/A", "platform": "Codeforces"}, {"name": "CF 445A - DZY Loves Chessboard", "url": "https://codeforces.com/problemset/problem/445/A", "platform": "Codeforces"}]}, {"id": "mod_arithmetic", "name": "Модульная арифметика", "tier": "easy", "tierName": "Онай", "icon": "🔢", "cfRating": "1000+", "usacoUrl": "https://usaco.guide/gold/modular", "usacoName": "Modular Arithmetic", "requires": ["stepik"], "position": {"x": 900, "y": 200}, "xpReward": 130, "timeComplexity": "O(1)", "summary": "Сложение, вычитание и умножение по модулю (например, 10^9 + 7). Предотвращение переполнений целочисленных типов.", "keyPoints": ["(a + b) % MOD, (a * b) % MOD с приведением к 1LL * a * b", "Вычитание: (a - b + MOD) % MOD", "Деление по модулю требует обратного элемента", "Стандартные модули: 10^9 + 7 и 998244353 (простые числа)"], "practice": [{"name": "CSES - Exponentiation", "url": "https://cses.fi/problemset/task/1095", "platform": "CSES"}, {"name": "CF 630I - Parking Lot", "url": "https://codeforces.com/problemset/problem/630/I", "platform": "Codeforces"}]}, {"id": "prefix_sums", "name": "Префиксные суммы", "tier": "easy", "tierName": "Онай", "icon": "➕", "cfRating": "900+", "usacoUrl": "https://usaco.guide/silver/prefix-sums", "usacoName": "Prefix Sums", "requires": ["stl_sort"], "position": {"x": 200, "y": 340}, "xpReward": 140, "timeComplexity": "O(N) препроцессинг, O(1) запрос", "summary": "Массив pref[i] = a[1] + ... + a[i]. Позволяет находить сумму на любом подотрезке [L, R] за O(1): sum = pref[R] - pref[L-1].", "keyPoints": ["1-индексация упрощает формулу: pref[0] = 0", "Двумерные префиксные суммы: запрос суммы в прямоугольнике за O(1)", "Использование префиксных XOR и префиксных минимумов", "Хранение в long long для избежания переполнения"], "practice": [{"name": "CSES - Static Range Sum Queries", "url": "https://cses.fi/problemset/task/1646", "platform": "CSES"}, {"name": "CF 433B - Kuriyama Mirai's Stones", "url": "https://codeforces.com/problemset/problem/433/B", "platform": "Codeforces"}]}, {"id": "two_pointers", "name": "Два указателя", "tier": "easy", "tierName": "Онай", "icon": "👆", "cfRating": "1000+", "usacoUrl": "https://usaco.guide/silver/two-pointers", "usacoName": "Two Pointers", "requires": ["stl_sort"], "position": {"x": 350, "y": 340}, "xpReward": 140, "timeComplexity": "O(N)", "summary": "Метод двух указателей (и скользящего окна): движение двух индексов L и R в одном или противоположных направлениях.", "keyPoints": ["Поиск пары с заданной суммой в отсортированном массиве за O(N)", "Скользящее окно: поиск подотрезка максимальной длины с условием", "Слияние двух отсортированных массивов (Merge)", "Оба указателя двигаются только вперед — суммарно 2*N операций"], "practice": [{"name": "CSES - Subarray Sums I", "url": "https://cses.fi/problemset/task/1660", "platform": "CSES"}, {"name": "CF 279B - Books", "url": "https://codeforces.com/problemset/problem/279/B", "platform": "Codeforces"}]}, {"id": "greedy", "name": "Базовая жадность", "tier": "easy", "tierName": "Онай", "icon": "🤑", "cfRating": "1000+", "usacoUrl": "https://usaco.guide/bronze/greedy", "usacoName": "Greedy Algorithms", "requires": ["stl_sort"], "position": {"x": 500, "y": 340}, "xpReward": 140, "timeComplexity": "O(N log N)", "summary": "Принятие локально оптимального решения на каждом шаге с доказательством глобальной оптимальности.", "keyPoints": ["Сортировка перед жадным выбором (по возрастанию/убыванию)", "Интервальное расписание: выбор отрезков с наименьшим концом", "Жадная раздача монет и рюкзак с дробями", "Доказательство: замена элементов (exchange argument)"], "practice": [{"name": "CSES - Movie Festival", "url": "https://cses.fi/problemset/task/1629", "platform": "CSES"}, {"name": "CF 405A - Gravity Flip", "url": "https://codeforces.com/problemset/problem/405/A", "platform": "Codeforces"}]}, {"id": "basic_dp", "name": "Базовая динамика (Кузнечик, лесенки)", "tier": "easy", "tierName": "Онай", "icon": "🧠", "cfRating": "1100+", "usacoUrl": "https://usaco.guide/gold/intro-dp", "usacoName": "Introduction to DP", "requires": ["brute_force"], "position": {"x": 650, "y": 340}, "xpReward": 150, "timeComplexity": "O(N)", "summary": "Разбиение задачи на подзадачи с перекрытием. Одномерное ДП: числа Фибоначчи, кузнечик, ступеньки с минимальной стоимостью.", "keyPoints": ["Определение состояния dp[i]", "Базовые случаи: dp[0], dp[1]", "Переход: dp[i] = min(dp[i-1], dp[i-2]) + cost[i]", "Восстановление ответа с помощью массива p[i]"], "practice": [{"name": "CSES - Dice Combinations", "url": "https://cses.fi/problemset/task/1633", "platform": "CSES"}, {"name": "CF 706B - Interesting drink", "url": "https://codeforces.com/problemset/problem/706/B", "platform": "Codeforces"}]}, {"id": "bsearch", "name": "Бинарный поиск", "tier": "medium", "tierName": "Средни", "icon": "🔍", "cfRating": "1200+", "usacoUrl": "https://usaco.guide/silver/binary-search", "usacoName": "Binary Search", "requires": ["stl_sort"], "position": {"x": 150, "y": 500}, "xpReward": 180, "timeComplexity": "O(log N)", "summary": "Поиск элемента в отсортированном массиве делением отрезка пополам за 30–60 операций при N = 10^9.", "keyPoints": ["Инвариант: границы [L, R] и выбор mid = L + (R - L) / 2", "Функции STL: std::lower_bound и std::upper_bound", "Бинпоиск по вещественным числам с фиксированным числом итераций", "Остерегайтесь бесконечных циклов при сдвиге границ"], "practice": [{"name": "CSES - Distinct Numbers", "url": "https://cses.fi/problemset/task/1621", "platform": "CSES"}, {"name": "CF 706B - Interesting drink", "url": "https://codeforces.com/problemset/problem/706/B", "platform": "Codeforces"}]}, {"id": "bsearch_ans", "name": "Бинпоиск по ответу", "tier": "medium", "tierName": "Средни", "icon": "🎯", "cfRating": "1300+", "usacoUrl": "https://usaco.guide/silver/binary-search", "usacoName": "Binary Search on Answer", "requires": ["bsearch", "prefix_sums", "greedy"], "position": {"x": 300, "y": 500}, "xpReward": 200, "timeComplexity": "O(log(Ans) * Check)", "summary": "Поиск оптимального ответа через бинпоиск по монотонной функции-предикату check(x).", "keyPoints": ["Свойство монотонности: если x подходит, то все y > x тоже подходят", "Написание проверочной функции check(mid) — обычно жадность или префиксы", "Задача о расстановке коров (Aggressive Cows)", "Определение диапазона ответа [minAns, maxAns]"], "practice": [{"name": "CSES - Factory Machines", "url": "https://cses.fi/problemset/task/1620", "platform": "CSES"}, {"name": "CSES - Array Division", "url": "https://cses.fi/problemset/task/1085", "platform": "CSES"}]}, {"id": "diff_array", "name": "Разностный массив", "tier": "medium", "tierName": "Средни", "icon": "📉", "cfRating": "1300+", "usacoUrl": "https://usaco.guide/silver/more-prefix-sums", "usacoName": "Difference Arrays", "requires": ["prefix_sums"], "position": {"x": 450, "y": 500}, "xpReward": 180, "timeComplexity": "O(1) обновление, O(N) восстановление", "summary": "Массив разностей d[i] = a[i] - a[i-1]. Прибавление числа x на [L, R] выполняется за O(1): d[L] += x, d[R+1] -= x.", "keyPoints": ["Массовые операции на статическом массиве без сложных структур", "Восстановление итогового массива через префиксные суммы за O(N)", "2D разностный массив для прямоугольных областей", "Часто используется в задачах на сканирующую прямую"], "practice": [{"name": "CF 295A - Greg and Array", "url": "https://codeforces.com/problemset/problem/295/A", "platform": "Codeforces"}, {"name": "CSES - Static Range Minimum Queries", "url": "https://cses.fi/problemset/task/1647", "platform": "CSES"}]}, {"id": "coord_compress", "name": "Сжатие координат", "tier": "medium", "tierName": "Средни", "icon": "📐", "cfRating": "1400+", "usacoUrl": "https://usaco.guide/silver/sorting-custom", "usacoName": "Coordinate Compression", "requires": ["stl_sort", "bsearch"], "position": {"x": 600, "y": 500}, "xpReward": 190, "timeComplexity": "O(N log N)", "summary": "Отображение координат порядка 10^9 в порядковые номера от 0 до N-1 с сохранением отношения порядка.", "keyPoints": ["vector<int> vals = a; sort(vals); vals.erase(unique)", "Замена координаты: lower_bound(vals.begin(), vals.end(), x) - vals.begin()", "Позволяет использовать дерево отрезков и Fenwick при координатах до 10^9", "Сжатие 2D координат для сеток и прямоугольников"], "practice": [{"name": "CF 1462D - Add to Neighbour", "url": "https://codeforces.com/problemset/problem/1462/D", "platform": "Codeforces"}, {"name": "CSES - Salary Queries", "url": "https://cses.fi/problemset/task/1144", "platform": "CSES"}]}, {"id": "euclid_gcd", "name": "Алгоритм Евклида (НОД/НОК)", "tier": "medium", "tierName": "Средни", "icon": "♻️", "cfRating": "1200+", "usacoUrl": "https://usaco.guide/gold/divisibility", "usacoName": "Divisibility & Euclidean Algorithm", "requires": ["mod_arithmetic"], "position": {"x": 750, "y": 500}, "xpReward": 170, "timeComplexity": "O(log(min(a,b)))", "summary": "Нахождение наибольшего общего делителя: gcd(a, b) = gcd(b, a % b). Расширенный алгоритм Евклида для ax + by = gcd(a, b).", "keyPoints": ["std::gcd и std::lcm в <numeric> (C++17)", "Связь НОД и НОК: lcm(a, b) = (a * b) / gcd(a, b)", "Расширенный алгоритм Евклида для диофантовых уравнений", "НОД массива чисел"], "practice": [{"name": "CSES - Common Divisors", "url": "https://cses.fi/problemset/task/1081", "platform": "CSES"}, {"name": "CF 1497B - M-arrays", "url": "https://codeforces.com/problemset/problem/1497/B", "platform": "Codeforces"}]}, {"id": "sieve", "name": "Решето Эратосфена", "tier": "medium", "tierName": "Средни", "icon": "🔬", "cfRating": "1200+", "usacoUrl": "https://usaco.guide/gold/divisibility", "usacoName": "Sieve of Eratosthenes", "requires": ["freq_arrays"], "position": {"x": 900, "y": 500}, "xpReward": 180, "timeComplexity": "O(N log log N)", "summary": "Нахождение всех простых чисел до N за почти линейное время. Линейное решето для факторизации чисел за O(log N).", "keyPoints": ["Вычеркивание составных чисел начиная с i*i", "Массив min_prime[x] — минимальный простой делитель числа", "Факторизация числа за O(log N) с помощью min_prime", "Функция Эйлера и подсчет количества делителей"], "practice": [{"name": "CSES - Counting Divisors", "url": "https://cses.fi/problemset/task/1713", "platform": "CSES"}, {"name": "CSES - Prime Multiples", "url": "https://cses.fi/problemset/task/2185", "platform": "CSES"}]}, {"id": "fast_pow", "name": "Быстрое возведение в степень", "tier": "medium", "tierName": "Средни", "icon": "⚡", "cfRating": "1300+", "usacoUrl": "https://usaco.guide/gold/modular", "usacoName": "Modular Exponentiation", "requires": ["mod_arithmetic"], "position": {"x": 1050, "y": 500}, "xpReward": 180, "timeComplexity": "O(log b)", "summary": "Бинарное возведение a в степень b по модулю MOD: a^b = (a^(b/2))^2 за O(log b).", "keyPoints": ["Итеративная реализация через биты степени b", "Матричное бинарное возведение в степень для линейных рекурренсий за O(K^3 log N)", "Вычисление n-го числа Фибоначчи за O(log N)", "База для вычисления обратного элемента"], "practice": [{"name": "CSES - Exponentiation II", "url": "https://cses.fi/problemset/task/1095", "platform": "CSES"}, {"name": "CSES - Fibonacci Numbers", "url": "https://cses.fi/problemset/task/1722", "platform": "CSES"}]}, {"id": "dfs", "name": "DFS (Поиск в глубину)", "tier": "medium", "tierName": "Средни", "icon": "🕸️", "cfRating": "1300+", "usacoUrl": "https://usaco.guide/silver/dfs", "usacoName": "Depth First Search", "requires": ["brute_force"], "position": {"x": 200, "y": 660}, "xpReward": 200, "timeComplexity": "O(V + E)", "summary": "Рекурсивный обход графа. Поиск компонент связности, проверка на двудольность, обнаружение циклов, тайминги входа/выхода.", "keyPoints": ["Представление графа: вектор списков смежности vector<vector<int>> adj", "Массив visited[u] для избежания зацикливания", "Обход сетки (Flood Fill) за O(N * M)", "Входное и выходное время: tin[u], tout[u]"], "practice": [{"name": "CSES - Building Roads", "url": "https://cses.fi/problemset/task/1666", "platform": "CSES"}, {"name": "CSES - Counting Rooms", "url": "https://cses.fi/problemset/task/1192", "platform": "CSES"}]}, {"id": "bfs", "name": "BFS (Поиск в ширину)", "tier": "medium", "tierName": "Средни", "icon": "🌊", "cfRating": "1300+", "usacoUrl": "https://usaco.guide/silver/bfs", "usacoName": "Breadth First Search", "requires": ["dfs"], "position": {"x": 350, "y": 660}, "xpReward": 200, "timeComplexity": "O(V + E)", "summary": "Поиск в ширину на очереди std::queue. Гарантированно находит кратчайший путь во невзвешенном графе.", "keyPoints": ["Очередь queue<int> q и массив расстояний dist[u]", "Восстановление пути через массив предков parent[u]", "0-1 BFS с std::deque за O(V + E)", "Многостартовый BFS (multi-source BFS)"], "practice": [{"name": "CSES - Message Route", "url": "https://cses.fi/problemset/task/1667", "platform": "CSES"}, {"name": "CSES - Labyrinth", "url": "https://cses.fi/problemset/task/1193", "platform": "CSES"}]}, {"id": "poly_hash", "name": "Полиномиальное хеширование", "tier": "medium", "tierName": "Средни", "icon": "#️⃣", "cfRating": "1400+", "usacoUrl": "https://usaco.guide/gold/string-hashing", "usacoName": "String Hashing", "requires": ["mod_arithmetic"], "position": {"x": 550, "y": 660}, "xpReward": 210, "timeComplexity": "O(N) препроцессинг, O(1) сравнение", "summary": "Превращение строк в числовые хеши по формуле hash = sum(s[i] * p^i mod MOD). Сравнение любых двух подстрок за O(1).", "keyPoints": ["Предподсчет степеней p^i и префиксных хешей", "Двойной хеш (два разных модуля) для защиты от коллизий", "Поиск подстроки за O(N + M) (алгоритм Рабина-Карпа)", "Определение палиндромов за O(1)"], "practice": [{"name": "CSES - String Matching", "url": "https://cses.fi/problemset/task/1753", "platform": "CSES"}, {"name": "CF 271D - Good Substrings", "url": "https://codeforces.com/problemset/problem/271/D", "platform": "Codeforces"}]}, {"id": "mid_dp", "name": "Динамика (Рюкзак, НВП, НОП)", "tier": "medium", "tierName": "Средни", "icon": "💎", "cfRating": "1400+", "usacoUrl": "https://usaco.guide/gold/knapsack", "usacoName": "Knapsack and Subsequence DP", "requires": ["basic_dp"], "position": {"x": 750, "y": 660}, "xpReward": 220, "timeComplexity": "O(N * W) / O(N log N)", "summary": "Классические многомерные задачи: 0-1 рюкзак, наибольшая возрастающая подпоследовательность (LIS) за O(N log N), наибольшая общая подпоследовательность (LCS).", "keyPoints": ["0-1 рюкзак: оптимизация памяти до одного массива dp[w] (проход справа налево)", "НВП (LIS) через динамику с бинарным поиском / терпеливую сортировку за O(N log N)", "НОП (LCS) двух строк длины N и M за O(N * M)", "Восстановление оптимального ответа назад по таблице"], "practice": [{"name": "CSES - Book Shop", "url": "https://cses.fi/problemset/task/1158", "platform": "CSES"}, {"name": "CSES - Increasing Subsequence", "url": "https://cses.fi/problemset/task/1145", "platform": "CSES"}]}, {"id": "mod_inv", "name": "Обратный элемент по модулю", "tier": "medium", "tierName": "Средни", "icon": "🔄", "cfRating": "1500+", "usacoUrl": "https://usaco.guide/gold/modular", "usacoName": "Modular Inverse", "requires": ["fast_pow"], "position": {"x": 950, "y": 660}, "xpReward": 210, "timeComplexity": "O(log MOD)", "summary": "Деление по модулю p: (a / b) mod p = a * b^(p-2) mod p по малой теореме Ферма для простого p.", "keyPoints": ["Малая теорема Ферма: inv(b) = binpow(b, MOD - 2, MOD)", "Предподсчет факториалов и обратных к ним за O(N) для C(n, k)", "Вычисление биномиальных коэффициентов nCr за O(1)", "Линейное вычисление обратных ко всем числам от 1 до N"], "practice": [{"name": "CSES - Creating Strings II", "url": "https://cses.fi/problemset/task/1715", "platform": "CSES"}, {"name": "CSES - Binomial Coefficients", "url": "https://cses.fi/problemset/task/1079", "platform": "CSES"}]}, {"id": "dsu", "name": "СНМ (DSU)", "tier": "hard", "tierName": "Киын", "icon": "🔗", "cfRating": "1500+", "usacoUrl": "https://usaco.guide/gold/dsu", "usacoName": "Disjoint Set Union", "requires": ["dfs"], "position": {"x": 100, "y": 820}, "xpReward": 250, "timeComplexity": "O(α(N)) почти O(1)", "summary": "Система непересекающихся множеств. Быстрое объединение множеств и проверка, принадлежат ли элементы одному компоненту.", "keyPoints": ["Сжатие путей (path compression): parent[v] = find(parent[v])", "Ранговая эвристика / объединение по размеру (union by size)", "Поддержание дополнительных данных в корне (размер, сумма, min)", "Основа для алгоритма Крускала (MST)"], "practice": [{"name": "CSES - Road Construction", "url": "https://cses.fi/problemset/task/1676", "platform": "CSES"}, {"name": "CF 25D - Roads not only in Berland", "url": "https://codeforces.com/problemset/problem/25/D", "platform": "Codeforces"}]}, {"id": "top_sort", "name": "Топологическая сортировка", "tier": "hard", "tierName": "Киын", "icon": "📋", "cfRating": "1500+", "usacoUrl": "https://usaco.guide/gold/toposort", "usacoName": "Topological Sort", "requires": ["dfs"], "position": {"x": 250, "y": 820}, "xpReward": 250, "timeComplexity": "O(V + E)", "summary": "Линейное упорядочивание вершин ориентированного ациклического графа (DAG), где каждое ребро направлено от ранней к поздней вершине.", "keyPoints": ["Реализация через DFS: порядок по убыванию времени выхода tout", "Алгоритм Кана на очередях с подсчетом входящих степеней in_degree", "Проверка на наличие циклов в графе", "ДП на DAG: поиск самого длинного пути"], "practice": [{"name": "CSES - Course Schedule", "url": "https://cses.fi/problemset/task/1679", "platform": "CSES"}, {"name": "CSES - Game Routes", "url": "https://cses.fi/problemset/task/1681", "platform": "CSES"}]}, {"id": "segtree", "name": "Дерево отрезков", "tier": "hard", "tierName": "Киын", "icon": "🌲", "cfRating": "1600+", "usacoUrl": "https://usaco.guide/plat/segtree", "usacoName": "Segment Tree", "requires": ["prefix_sums", "diff_array"], "position": {"x": 400, "y": 820}, "xpReward": 300, "timeComplexity": "O(log N) на запрос и обновление", "summary": "Двоичное дерево для запросов на подотрезках (сумма, минимум, НОД) и точечных/массовых изменений.", "keyPoints": ["Размер массива 4*N", "Построение за O(N), запрос и точечное обновление за O(log N)", "Отложенные операции (Lazy Propagation) для обновлений на отрезке за O(log N)", "Спуск по дереву отрезков для поиска первого элемента с условием"], "practice": [{"name": "CSES - Dynamic Range Sum Queries", "url": "https://cses.fi/problemset/task/1648", "platform": "CSES"}, {"name": "CSES - Range Update Queries", "url": "https://cses.fi/problemset/task/1651", "platform": "CSES"}]}, {"id": "fenwick", "name": "Дерево Фенвика", "tier": "hard", "tierName": "Киын", "icon": "🌿", "cfRating": "1600+", "usacoUrl": "https://usaco.guide/gold/purq", "usacoName": "Binary Indexed Tree (Fenwick)", "requires": ["prefix_sums"], "position": {"x": 550, "y": 820}, "xpReward": 280, "timeComplexity": "O(log N)", "summary": "Компактная структура данных для префиксных сумм и точечных изменений. Код в 10 строк, работает быстрее дерева отрезков.", "keyPoints": ["Битовая магия: i += i & (-i) и i -= i & (-i)", "Занимает ровно N памяти, низкий оверхед по константе", "Подсчет инверсий в массиве за O(N log N)", "Многомерное дерево Фенвика"], "practice": [{"name": "CSES - Dynamic Range Sum Queries", "url": "https://cses.fi/problemset/task/1648", "platform": "CSES"}, {"name": "CF 61E - Enemy is weak", "url": "https://codeforces.com/problemset/problem/61/E", "platform": "Codeforces"}]}, {"id": "dijkstra", "name": "Алгоритм Дейкстры", "tier": "hard", "tierName": "Киын", "icon": "🛤️", "cfRating": "1600+", "usacoUrl": "https://usaco.guide/gold/shortest-paths", "usacoName": "Shortest Paths (Dijkstra)", "requires": ["bfs", "greedy"], "position": {"x": 700, "y": 820}, "xpReward": 280, "timeComplexity": "O(E log V)", "summary": "Поиск кратчайших путей из стартовой вершины во взвешенном ориентированном графе с неотрицательными ребрами.", "keyPoints": ["Использование priority_queue<pair<long long, int>, ... greater<...>>", "Релаксация ребер: if (dist[v] > dist[u] + w) dist[v] = dist[u] + w", "Проверка на устаревшие записи в очереди", "Не работает при наличии отрицательных весов (нужен Форд-Беллман)"], "practice": [{"name": "CSES - Shortest Routes I", "url": "https://cses.fi/problemset/task/1671", "platform": "CSES"}, {"name": "CF 20C - Dijkstra?", "url": "https://codeforces.com/problemset/problem/20/C", "platform": "Codeforces"}]}, {"id": "sweep_line", "name": "Сканирующая прямая", "tier": "hard", "tierName": "Киын", "icon": "📏", "cfRating": "1600+", "usacoUrl": "https://usaco.guide/plat/line-sweep", "usacoName": "Line Sweep", "requires": ["stl_sort"], "position": {"x": 850, "y": 820}, "xpReward": 280, "timeComplexity": "O(N log N)", "summary": "Геометрический метод: воображаемая прямая движется по плоскости, обрабатывая события (начала/концы отрезков) через std::set.", "keyPoints": ["Разбиение отрезков на события: START(+1) и END(-1)", "Сортировка событий по координате X", "Площадь объединения прямоугольников", "Пересечение отрезков на плоскости"], "practice": [{"name": "CSES - Restaurant Customers", "url": "https://cses.fi/problemset/task/1619", "platform": "CSES"}, {"name": "CSES - Intersection Points", "url": "https://cses.fi/problemset/task/1740", "platform": "CSES"}]}, {"id": "ternary_search", "name": "Тернарный поиск", "tier": "hard", "tierName": "Киын", "icon": "🔺", "cfRating": "1600+", "usacoUrl": "https://usaco.guide/general/ternary-search", "usacoName": "Ternary Search", "requires": ["bsearch"], "position": {"x": 1000, "y": 820}, "xpReward": 260, "timeComplexity": "O(log N)", "summary": "Поиск минимума или максимума унимодальной функции делением отрезка на три части (m1 и m2).", "keyPoints": ["m1 = l + (r - l) / 3, m2 = r - (r - l) / 3", "Если f(m1) < f(m2), то максимум правее m1", "Применимо только к строго унимодальным функциям (без плато)", "Тернарный поиск по целым числам требует проверки соседних точек"], "practice": [{"name": "CF 578C - Weakness and Poorness", "url": "https://codeforces.com/problemset/problem/578/C", "platform": "Codeforces"}, {"name": "CodeChef - CHEFPRMS", "url": "https://www.codechef.com/", "platform": "CodeChef"}]}, {"id": "mst", "name": "Минимальное остовное дерево (Крускал/Прим)", "tier": "hard", "tierName": "Киын", "icon": "🌉", "cfRating": "1600+", "usacoUrl": "https://usaco.guide/gold/mst", "usacoName": "Minimum Spanning Trees", "requires": ["dsu", "greedy"], "position": {"x": 150, "y": 980}, "xpReward": 290, "timeComplexity": "O(E log E)", "summary": "Построение дерева, соединяющего все вершины связного взвешенного графа с минимальным суммарным весом ребер.", "keyPoints": ["Алгоритм Крускала: сортировка ребер по весу + добавление через DSU", "Алгоритм Прима: жадное наращивание дерева из стартовой вершины через priority_queue", "Свойство разреза (Cut Property)", "Поиск второго лучшего остовного дерева"], "practice": [{"name": "CSES - Road Reparation", "url": "https://cses.fi/problemset/task/1675", "platform": "CSES"}, {"name": "CF 1245D - Shichikuji and Power Grid", "url": "https://codeforces.com/problemset/problem/1245/D", "platform": "Codeforces"}]}, {"id": "kmp", "name": "Префикс-функция (КМП)", "tier": "hard", "tierName": "Киын", "icon": "🔤", "cfRating": "1700+", "usacoUrl": "https://usaco.guide/plat/string-search", "usacoName": "String Matching (KMP)", "requires": ["poly_hash"], "position": {"x": 300, "y": 980}, "xpReward": 310, "timeComplexity": "O(N + M)", "summary": "Вычисление длины наибольшего собственного префикса строки, совпадающего с ее суффиксом. Точный поиск подстроки в строке за линейное время.", "keyPoints": ["Массив pi[i]: длина наибольшего префикса, являющегося суффиксом s[0..i]", "Поиск подстроки pattern в text: вычисление pi для строки pattern + '#' + text", "Автомат Кнута-Морриса-Пратта", "Поиск периода строки за O(N)"], "practice": [{"name": "CSES - String Matching", "url": "https://cses.fi/problemset/task/1753", "platform": "CSES"}, {"name": "CF 471D - MUH and Cube Walls", "url": "https://codeforces.com/problemset/problem/471/D", "platform": "Codeforces"}]}, {"id": "trie", "name": "Бор (Trie)", "tier": "hard", "tierName": "Киын", "icon": "🌳", "cfRating": "1700+", "usacoUrl": "https://usaco.guide/plat/trie", "usacoName": "Tries", "requires": ["dfs"], "position": {"x": 450, "y": 980}, "xpReward": 310, "timeComplexity": "O(|S|) на слово, O(30) на XOR", "summary": "Дерево префиксов для строк или двоичных представлений чисел. Позволяет за O(30) находить пару с максимальным XOR.", "keyPoints": ["Узел хранит массив переходов next[26] или next[2] и флаг is_terminal", "Бор на битах (Binary Trie) для задач на максимальный/минимальный XOR", "Слияние боров за O(N)", "Основа для алгоритма Ахо-Корасик"], "practice": [{"name": "CSES - Word Combinations", "url": "https://cses.fi/problemset/task/1731", "platform": "CSES"}, {"name": "CF 706D - Vasiliy's Multiset", "url": "https://codeforces.com/problemset/problem/706/D", "platform": "Codeforces"}]}, {"id": "bitmask_dp", "name": "Динамика по маскам", "tier": "hard", "tierName": "Киын", "icon": "🎭", "cfRating": "1700+", "usacoUrl": "https://usaco.guide/gold/bitmask-dp", "usacoName": "Bitmask DP", "requires": ["mid_dp"], "position": {"x": 600, "y": 980}, "xpReward": 320, "timeComplexity": "O(2^N * N)", "summary": "Динамическое программирование, где состояние кодируется целым числом-битовой маской. Применяется при N <= 20–22.", "keyPoints": ["Битовые операции: (mask >> i) & 1, mask | (1 << i), mask ^ (1 << i)", "Задача коммивояжера (TSP): dp[mask][last] за O(2^N * N^2)", "Перебор подмасок за O(3^N): for (int sub = mask; sub; sub = (sub - 1) & mask)", "SOS DP (Sum over Subsets) за O(N * 2^N)"], "practice": [{"name": "CSES - Matching", "url": "https://cses.fi/problemset/task/2181", "platform": "CSES"}, {"name": "CSES - Hamilton Flight", "url": "https://cses.fi/problemset/task/1690", "platform": "CSES"}]}, {"id": "tree_dp", "name": "Динамика на деревьях", "tier": "hard", "tierName": "Киын", "icon": "🏔️", "cfRating": "1700+", "usacoUrl": "https://usaco.guide/gold/tree-dp", "usacoName": "DP on Trees", "requires": ["dfs", "mid_dp"], "position": {"x": 750, "y": 980}, "xpReward": 320, "timeComplexity": "O(N)", "summary": "Вычисление значений ДП в поддеревьях с помощью DFS снизу-вверх, а также переподвешивание корня (Rerooting DP).", "keyPoints": ["dp[u] вычисляется после обхода всех детей v ∈ children(u)", "Максимальное независимое множество в дереве", "Rerooting DP: пересчет ответа для всех возможных корней за O(N)", "Диаметр дерева и центры дерева"], "practice": [{"name": "CSES - Tree Matching", "url": "https://cses.fi/problemset/task/1130", "platform": "CSES"}, {"name": "CSES - Tree Distances I", "url": "https://cses.fi/problemset/task/1132", "platform": "CSES"}]}, {"id": "sparse_table", "name": "Разреженная таблица (Sparse Table)", "tier": "hard", "tierName": "Киын", "icon": "📊", "cfRating": "1700+", "usacoUrl": "https://usaco.guide/plat/sparse-table", "usacoName": "Sparse Table", "requires": ["fenwick"], "position": {"x": 900, "y": 980}, "xpReward": 300, "timeComplexity": "O(N log N) препроцессинг, O(1) запрос", "summary": "Таблица st[k][i] — ответ на отрезке длины 2^k, начинающемся в i. Статический RMQ (Range Minimum Query) за O(1).", "keyPoints": ["Идемпотентные операции: min(a, a) = a, gcd(a, a) = a", "Запрос [L, R]: объединение двух перекрывающихся отрезков длины 2^k", "st[k][i] = min(st[k-1][i], st[k-1][i + (1 << (k-1))])", "Предподсчет логарифмов __builtin_clz или массив log2"], "practice": [{"name": "CSES - Static Range Minimum Queries", "url": "https://cses.fi/problemset/task/1647", "platform": "CSES"}, {"name": "CF 1454F - Array Partition", "url": "https://codeforces.com/problemset/problem/1454/F", "platform": "Codeforces"}]}, {"id": "lca", "name": "LCA (Наименьший общий предок)", "tier": "hard", "tierName": "Киын", "icon": "👑", "cfRating": "1800+", "usacoUrl": "https://usaco.guide/plat/binary-jump", "usacoName": "Binary Lifting & LCA", "requires": ["dfs", "sparse_table"], "position": {"x": 1050, "y": 980}, "xpReward": 350, "timeComplexity": "O(N log N) препроцессинг, O(log N) запрос", "summary": "Lowest Common Ancestor: поиск наименьшего общего предка двух вершин в дереве через двоичные подъемы (Binary Lifting) за O(log N) или RMQ за O(1).", "keyPoints": ["Массив up[k][u]: предок вершины u на расстоянии 2^k", "up[k][u] = up[k-1][up[k-1][u]]", "Расстояние между вершинами: dist(u, v) = depth[u] + depth[v] - 2 * depth[lca(u, v)]", "Запросы минимума/суммы на пути в дереве"], "practice": [{"name": "CSES - Company Queries I", "url": "https://cses.fi/problemset/task/1687", "platform": "CSES"}, {"name": "CSES - Distance Queries", "url": "https://cses.fi/problemset/task/1135", "platform": "CSES"}]}]};
+    }
     </script>
 </body>
 </html>
