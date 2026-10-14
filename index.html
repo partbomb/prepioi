@@ -1003,6 +1003,141 @@
             .tree-viewport { height: 600px; }
             .modal-card { max-height: 95vh; }
         }
+
+        /* ===== VIEW MODE TOGGLE ===== */
+        .view-mode-box {
+            display: flex;
+            gap: 0.35rem;
+            background: rgba(0,0,0,0.35);
+            padding: 0.3rem;
+            border-radius: var(--radius-full);
+            border: 1px solid var(--glass-border);
+        }
+
+        .view-btn {
+            padding: 0.45rem 1.1rem;
+            border-radius: var(--radius-full);
+            border: none;
+            background: transparent;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .view-btn.active {
+            background: linear-gradient(135deg, #06b6d4, #8b5cf6);
+            color: #fff;
+            box-shadow: 0 2px 10px rgba(6,182,212,0.45);
+        }
+
+        /* ===== GALAXY MODE ===== */
+        .tree-view-wrapper.galaxy-mode {
+            background: #000 !important;
+        }
+
+        .galaxy-mode .tree-viewport {
+            background: #000;
+        }
+
+        /* Starfield on the canvas */
+        .galaxy-mode .tree-canvas {
+            background: radial-gradient(ellipse 90% 80% at 50% 40%, #06001f 0%, #000008 60%, #000 100%);
+        }
+
+        /* Hide tier-zone labels in galaxy mode */
+        .galaxy-mode .tier-zone {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* Galaxy node orbs */
+        .galaxy-mode .node-card {
+            width: 70px !important;
+            height: 70px !important;
+            border-radius: 50% !important;
+            padding: 0 !important;
+            align-items: center !important;
+            justify-content: center !important;
+            flex-direction: column !important;
+            background: rgba(0,0,5,0.75) !important;
+            border-width: 2px !important;
+            transform: translate(-35px, -35px) !important;
+            gap: 0 !important;
+            overflow: visible !important;
+        }
+
+        .galaxy-mode .node-card .node-title,
+        .galaxy-mode .node-card .node-meta {
+            display: none !important;
+        }
+
+        .galaxy-mode .node-card .node-icon {
+            font-size: 1.6rem !important;
+        }
+
+        /* Galaxy node name tooltip on hover */
+        .galaxy-mode .node-card::after {
+            content: attr(data-galaxy-name);
+            position: absolute;
+            bottom: calc(100% + 6px);
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.95);
+            color: #fff;
+            padding: 0.3rem 0.65rem;
+            border-radius: 6px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s;
+            z-index: 50;
+            border: 1px solid rgba(255,255,255,0.15);
+        }
+
+        .galaxy-mode .node-card:hover::after {
+            opacity: 1;
+        }
+
+        /* Tier glow colors in galaxy mode */
+        .galaxy-mode .node-card.tier-start {
+            border-color: #a78bfa !important;
+            box-shadow: 0 0 12px #8b5cf6, 0 0 28px rgba(139,92,246,0.6), 0 0 55px rgba(139,92,246,0.3) !important;
+        }
+        .galaxy-mode .node-card.tier-easy {
+            border-color: #10b981 !important;
+            box-shadow: 0 0 12px #10b981, 0 0 28px rgba(16,185,129,0.6), 0 0 55px rgba(16,185,129,0.3) !important;
+        }
+        .galaxy-mode .node-card.tier-medium {
+            border-color: #f59e0b !important;
+            box-shadow: 0 0 12px #f59e0b, 0 0 28px rgba(245,158,11,0.6), 0 0 55px rgba(245,158,11,0.3) !important;
+        }
+        .galaxy-mode .node-card.tier-hard {
+            border-color: #ef4444 !important;
+            box-shadow: 0 0 12px #ef4444, 0 0 28px rgba(239,68,68,0.6), 0 0 55px rgba(239,68,68,0.3) !important;
+        }
+
+        .galaxy-mode .node-card.completed {
+            box-shadow: 0 0 18px #10b981, 0 0 40px rgba(16,185,129,0.8), 0 0 70px rgba(16,185,129,0.4) !important;
+            border-color: #10b981 !important;
+        }
+
+        .galaxy-mode .node-card:hover {
+            transform: translate(-35px,-35px) scale(1.2) !important;
+            z-index: 30;
+        }
+
+        /* Galaxy SVG edges - glow effect via CSS filter */
+        .galaxy-mode .edge {
+            stroke-width: 1.5;
+        }
+
+        .galaxy-mode .edge.active {
+            stroke-width: 2.5;
+        }
     </style>
 </head>
 <body>
@@ -1108,19 +1243,27 @@
                 </div>
             </div>
 
-            <!-- FILTERS & SEARCH -->
+            <!-- VIEW MODE + FILTERS & SEARCH -->
             <div class="tree-header-controls" id="tree-section">
-                <div class="filter-tabs">
-                    <button class="filter-btn active" data-filter="all">🌐 Все темы (34)</button>
-                    <button class="filter-btn" data-filter="easy">🟢 Лёгкий (8)</button>
-                    <button class="filter-btn" data-filter="medium">🟡 Средний (12)</button>
-                    <button class="filter-btn" data-filter="hard">🔴 Сложный (14)</button>
-                    <button class="filter-btn" data-filter="completed">✅ Изученные</button>
+                <div style="display:flex;align-items:center;gap:0.75rem;flex-wrap:wrap;">
+                    <!-- View mode switch -->
+                    <div class="view-mode-box">
+                        <button class="view-btn active" id="btn-view-tree" data-view="tree">🌳 Дерево</button>
+                        <button class="view-btn" id="btn-view-galaxy" data-view="galaxy">🌌 Галактика</button>
+                    </div>
+
+                    <div class="filter-tabs" id="filter-tabs-box">
+                        <button class="filter-btn active" data-filter="all">🌐 Все (34)</button>
+                        <button class="filter-btn" data-filter="easy">🟢 Лёгкий</button>
+                        <button class="filter-btn" data-filter="medium">🟡 Средний</button>
+                        <button class="filter-btn" data-filter="hard">🔴 Сложный</button>
+                        <button class="filter-btn" data-filter="completed">✅ Изученные</button>
+                    </div>
                 </div>
 
                 <div class="search-box">
                     <span class="search-icon">🔍</span>
-                    <input type="text" id="topic-search" class="search-input" placeholder="Поиск темы (например, 'Бинпоиск')...">
+                    <input type="text" id="topic-search" class="search-input" placeholder="Поиск темы...">
                 </div>
             </div>
 
@@ -1273,6 +1416,7 @@
         initUI();
         renderTree();
         setupPanZoom();
+        initViewModes();
         updatePlayerStats();
     });
 
@@ -1539,11 +1683,11 @@
         const canvas = document.getElementById('tree-canvas');
 
         document.getElementById('zoom-in').addEventListener('click', () => {
-            zoomLevel = Math.min(1.5, zoomLevel + 0.15);
+            zoomLevel = Math.min(2.0, zoomLevel + 0.15);
             applyZoom();
         });
         document.getElementById('zoom-out').addEventListener('click', () => {
-            zoomLevel = Math.max(0.65, zoomLevel - 0.15);
+            zoomLevel = Math.max(0.4, zoomLevel - 0.15);
             applyZoom();
         });
         document.getElementById('zoom-reset').addEventListener('click', () => {
@@ -1558,6 +1702,145 @@
 
         // Center on start
         viewport.scrollLeft = 80;
+    }
+
+    // ===== VIEW MODE SWITCHING =====
+    let viewMode = 'tree';
+
+    function initViewModes() {
+        document.querySelectorAll('.view-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                if (btn.dataset.view === viewMode) return;
+                document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                viewMode = btn.dataset.view;
+                applyViewMode();
+            });
+        });
+    }
+
+    function applyViewMode() {
+        const wrapper = document.querySelector('.tree-view-wrapper');
+        const canvas = document.getElementById('tree-canvas');
+
+        if (viewMode === 'galaxy') {
+            wrapper.classList.add('galaxy-mode');
+            canvas.classList.add('galaxy-mode');
+            // Add tooltip data attributes
+            skillTreeData.nodes.forEach(node => {
+                const el = document.getElementById(`node-${node.id}`);
+                if (el) el.setAttribute('data-galaxy-name', node.name);
+            });
+            renderGalaxyEdges();
+            addStarfield(canvas);
+        } else {
+            wrapper.classList.remove('galaxy-mode');
+            canvas.classList.remove('galaxy-mode');
+            // Remove starfield canvas if exists
+            const stars = document.getElementById('starfield-canvas');
+            if (stars) stars.remove();
+            renderTree();
+        }
+    }
+
+    const TIER_COLORS = {
+        start:  '#8b5cf6',
+        easy:   '#10b981',
+        medium: '#f59e0b',
+        hard:   '#ef4444'
+    };
+
+    function renderGalaxyEdges() {
+        const svg = document.getElementById('tree-svg');
+        svg.innerHTML = '';
+
+        // SVG glow filter defs
+        const defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
+        Object.entries(TIER_COLORS).forEach(([tier, color]) => {
+            const filter = document.createElementNS('http://www.w3.org/2000/svg', 'filter');
+            filter.setAttribute('id', `glow-${tier}`);
+            filter.setAttribute('x', '-80%'); filter.setAttribute('y', '-80%');
+            filter.setAttribute('width', '360%'); filter.setAttribute('height', '360%');
+            const blur = document.createElementNS('http://www.w3.org/2000/svg', 'feGaussianBlur');
+            blur.setAttribute('stdDeviation', '3'); blur.setAttribute('result', 'coloredBlur');
+            const merge = document.createElementNS('http://www.w3.org/2000/svg', 'feMerge');
+            const mn1 = document.createElementNS('http://www.w3.org/2000/svg', 'feMergeNode');
+            mn1.setAttribute('in', 'coloredBlur');
+            const mn2 = document.createElementNS('http://www.w3.org/2000/svg', 'feMergeNode');
+            mn2.setAttribute('in', 'SourceGraphic');
+            merge.appendChild(mn1); merge.appendChild(mn2);
+            filter.appendChild(blur); filter.appendChild(merge);
+            defs.appendChild(filter);
+        });
+        svg.appendChild(defs);
+
+        // Draw glowing edges
+        skillTreeData.nodes.forEach(node => {
+            if (!node.requires || node.requires.length === 0) return;
+            node.requires.forEach(reqId => {
+                const parent = skillTreeData.nodes.find(n => n.id === reqId);
+                if (!parent) return;
+
+                // Galaxy nodes are centered via CSS transform: translate(-35,-35)
+                // So the center of the node is at position.x, position.y + 35 (mid of 70px orb)
+                const sx = parent.position.x + 35;
+                const sy = parent.position.y + 35;
+                const ex = node.position.x + 35;
+                const ey = node.position.y + 35;
+
+                const color = TIER_COLORS[parent.tier] || '#64748b';
+                const isDone = completedTopics.includes(reqId);
+                const cy = (sy + ey) / 2 + (Math.abs(ex - sx) * 0.15);
+
+                const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                const cx1 = sx + (ex - sx) * 0.1;
+                const cx2 = ex - (ex - sx) * 0.1;
+                path.setAttribute('d', `M ${sx} ${sy} C ${cx1} ${sy}, ${cx2} ${ey}, ${ex} ${ey}`);
+                path.setAttribute('stroke', isDone ? color : color + '66');
+                path.setAttribute('stroke-width', isDone ? '2.5' : '1.2');
+                path.setAttribute('fill', 'none');
+                path.setAttribute('filter', `url(#glow-${parent.tier})`);
+                path.setAttribute('class', `edge galaxy-edge edge-${reqId}-${node.id}`);
+                svg.appendChild(path);
+            });
+        });
+    }
+
+    function addStarfield(canvas) {
+        if (document.getElementById('starfield-canvas')) return;
+        const c = document.createElement('canvas');
+        c.id = 'starfield-canvas';
+        c.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;';
+        c.width = 1300; c.height = 1200;
+        canvas.prepend(c);
+        const ctx = c.getContext('2d');
+        // Draw random stars
+        for (let i = 0; i < 280; i++) {
+            const x = Math.random() * 1300;
+            const y = Math.random() * 1200;
+            const r = Math.random() * 1.4;
+            const alpha = 0.15 + Math.random() * 0.7;
+            ctx.beginPath();
+            ctx.arc(x, y, r, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(255,255,255,${alpha})`;
+            ctx.fill();
+        }
+        // A few colored nebula blobs
+        const blobs = [
+            { x: 300, y: 400, r: 120, color: 'rgba(16,185,129,0.06)' },
+            { x: 800, y: 700, r: 140, color: 'rgba(245,158,11,0.05)' },
+            { x: 500, y: 900, r: 110, color: 'rgba(239,68,68,0.06)' },
+            { x: 650, y: 100, r: 80,  color: 'rgba(139,92,246,0.08)' },
+        ];
+        blobs.forEach(b => {
+            const grd = ctx.createRadialGradient(b.x, b.y, 0, b.x, b.y, b.r);
+            grd.addColorStop(0, b.color);
+            grd.addColorStop(1, 'transparent');
+            ctx.fillStyle = grd;
+            ctx.beginPath();
+            ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
+            ctx.fill();
+        });
     }
 
     function getEmbeddedData() {
