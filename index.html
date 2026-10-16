@@ -1377,9 +1377,6 @@
             </div>
 
             <div class="modal-footer">
-                <span style="font-size: 0.85rem; color: var(--text-secondary);" id="modal-xp-reward">
-                    Награда: +120 XP
-                </span>
                 <button class="btn-toggle-learned" id="modal-toggle-learned">
                     <span>✓</span>
                     <span id="modal-toggle-learned-text">Отметить как изученное</span>
@@ -1659,7 +1656,6 @@
             practiceBox.appendChild(a);
         });
 
-        document.getElementById('modal-xp-reward').textContent = `Награда: +${node.xpReward || 100} XP`;
         updateModalLearnedState(node);
 
         document.getElementById('topic-modal').classList.add('active');
@@ -1726,17 +1722,10 @@
         if (viewMode === 'galaxy') {
             wrapper.classList.add('galaxy-mode');
             canvas.classList.add('galaxy-mode');
-            // Add tooltip data attributes
-            skillTreeData.nodes.forEach(node => {
-                const el = document.getElementById(`node-${node.id}`);
-                if (el) el.setAttribute('data-galaxy-name', node.name);
-            });
-            renderGalaxyEdges();
-            addStarfield(canvas);
+            renderGalaxy();
         } else {
             wrapper.classList.remove('galaxy-mode');
             canvas.classList.remove('galaxy-mode');
-            // Remove starfield canvas if exists
             const stars = document.getElementById('starfield-canvas');
             if (stars) stars.remove();
             renderTree();
@@ -1750,19 +1739,71 @@
         hard:   '#ef4444'
     };
 
-    function renderGalaxyEdges() {
+    // Build radial positions: Stepik at center, rings per tier
+    function buildGalaxyPositions() {
+        const cx = 660, cy = 580; // canvas center
+        const radii = { start: 0, easy: 210, medium: 420, hard: 650 };
+
+        const byTier = { start: [], easy: [], medium: [], hard: [] };
+        skillTreeData.nodes.forEach(n => {
+            if (byTier[n.tier] !== undefined) byTier[n.tier].push(n);
+        });
+
+        const pos = new Map();
+
+        // Center
+        byTier.start.forEach(n => pos.set(n.id, { x: cx, y: cy }));
+
+        // Rings — offset start angle so no node sits exactly at top
+        const startAngles = { easy: -Math.PI / 2, medium: -Math.PI / 6, hard: -Math.PI / 2 };
+        ['easy', 'medium', 'hard'].forEach(tier => {
+            const nodes = byTier[tier];
+            const r = radii[tier];
+            const offset = startAngles[tier];
+            nodes.forEach((n, i) => {
+                const angle = offset + (2 * Math.PI * i / nodes.length);
+                pos.set(n.id, {
+                    x: Math.round(cx + r * Math.cos(angle)),
+                    y: Math.round(cy + r * Math.sin(angle))
+                });
+            });
+        });
+
+        return pos;
+    }
+
+    function renderGalaxy() {
+        const container = document.getElementById('nodes-container');
         const svg = document.getElementById('tree-svg');
+        const canvas = document.getElementById('tree-canvas');
+        container.innerHTML = '';
         svg.innerHTML = '';
 
-        // SVG glow filter defs
+        const gPos = buildGalaxyPositions();
+
+        // Place nodes at radial positions
+        skillTreeData.nodes.forEach(node => {
+            const p = gPos.get(node.id) || node.position;
+            const card = document.getElementById(`node-${node.id}`) || document.createElement('div');
+            card.className = `node-card tier-${node.tier}`;
+            card.id = `node-${node.id}`;
+            card.style.left = `${p.x}px`;
+            card.style.top  = `${p.y}px`;
+            card.setAttribute('data-galaxy-name', node.name);
+            card.innerHTML = `<div class="node-icon">${node.icon}</div>`;
+            card.addEventListener('click', () => openModal(node));
+            container.appendChild(card);
+        });
+
+        // SVG glow filters
         const defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
-        Object.entries(TIER_COLORS).forEach(([tier, color]) => {
+        Object.entries(TIER_COLORS).forEach(([tier]) => {
             const filter = document.createElementNS('http://www.w3.org/2000/svg', 'filter');
             filter.setAttribute('id', `glow-${tier}`);
             filter.setAttribute('x', '-80%'); filter.setAttribute('y', '-80%');
             filter.setAttribute('width', '360%'); filter.setAttribute('height', '360%');
             const blur = document.createElementNS('http://www.w3.org/2000/svg', 'feGaussianBlur');
-            blur.setAttribute('stdDeviation', '3'); blur.setAttribute('result', 'coloredBlur');
+            blur.setAttribute('stdDeviation', '4'); blur.setAttribute('result', 'coloredBlur');
             const merge = document.createElementNS('http://www.w3.org/2000/svg', 'feMerge');
             const mn1 = document.createElementNS('http://www.w3.org/2000/svg', 'feMergeNode');
             mn1.setAttribute('in', 'coloredBlur');
@@ -1774,29 +1815,35 @@
         });
         svg.appendChild(defs);
 
-        // Draw glowing edges
+        // Draw orbit ring circles (decorative)
+        [210, 420, 650].forEach((r, i) => {
+            const ring = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+            ring.setAttribute('cx', 660); ring.setAttribute('cy', 580); ring.setAttribute('r', r);
+            ring.setAttribute('fill', 'none');
+            const ringColors = ['rgba(16,185,129,0.08)', 'rgba(245,158,11,0.08)', 'rgba(239,68,68,0.08)'];
+            ring.setAttribute('stroke', ringColors[i]);
+            ring.setAttribute('stroke-width', '1');
+            ring.setAttribute('stroke-dasharray', '4 8');
+            svg.appendChild(ring);
+        });
+
+        // Draw edges with glow
         skillTreeData.nodes.forEach(node => {
             if (!node.requires || node.requires.length === 0) return;
             node.requires.forEach(reqId => {
                 const parent = skillTreeData.nodes.find(n => n.id === reqId);
                 if (!parent) return;
-
-                // Galaxy nodes are centered via CSS transform: translate(-35,-35)
-                // So the center of the node is at position.x, position.y + 35 (mid of 70px orb)
-                const sx = parent.position.x + 35;
-                const sy = parent.position.y + 35;
-                const ex = node.position.x + 35;
-                const ey = node.position.y + 35;
-
+                const sp = gPos.get(reqId)   || parent.position;
+                const ep = gPos.get(node.id) || node.position;
                 const color = TIER_COLORS[parent.tier] || '#64748b';
                 const isDone = completedTopics.includes(reqId);
-                const cy = (sy + ey) / 2 + (Math.abs(ex - sx) * 0.15);
 
                 const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-                const cx1 = sx + (ex - sx) * 0.1;
-                const cx2 = ex - (ex - sx) * 0.1;
-                path.setAttribute('d', `M ${sx} ${sy} C ${cx1} ${sy}, ${cx2} ${ey}, ${ex} ${ey}`);
-                path.setAttribute('stroke', isDone ? color : color + '66');
+                // Straight line with slight curve towards center
+                const mx = (sp.x + ep.x) / 2;
+                const my = (sp.y + ep.y) / 2;
+                path.setAttribute('d', `M ${sp.x} ${sp.y} Q ${mx} ${my}, ${ep.x} ${ep.y}`);
+                path.setAttribute('stroke', isDone ? color : color + '55');
                 path.setAttribute('stroke-width', isDone ? '2.5' : '1.2');
                 path.setAttribute('fill', 'none');
                 path.setAttribute('filter', `url(#glow-${parent.tier})`);
@@ -1804,6 +1851,9 @@
                 svg.appendChild(path);
             });
         });
+
+        updateNodeVisuals();
+        addStarfield(canvas);
     }
 
     function addStarfield(canvas) {
